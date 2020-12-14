@@ -1,106 +1,117 @@
 <template>
   <div class="form-wrapper">
-    <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
-      <!-- the "handleSubmit" function on the slot-scope executes the callback if validation was successfull -->
-      <section class="section">
-        <ValidationProvider
-          rules="required|email"
-          name="Email"
-          v-slot="{ errors, valid }"
-        >
-          <b-field
-            label="Email"
-            :type="{ 'is-danger': errors[0], 'is-success': valid }"
-            :message="errors"
-          >
-            <b-input type="email" v-model="email"></b-input>
-          </b-field>
-        </ValidationProvider>
-
-        <ValidationProvider
-          rules="required"
-          vid="password"
-          name="Password"
-          v-slot="{ errors, valid }"
-        >
-          <b-field
-            label="Password"
-            :type="{ 'is-danger': errors[0], 'is-success': valid }"
-            :message="errors"
-          >
-            <b-input type="password" v-model="password"></b-input>
-          </b-field>
-        </ValidationProvider>
-
-        <ValidationProvider
-          rules="required|confirmed:password"
-          name="Password Confirmation"
-          v-slot="{ errors, valid }"
-        >
-          <b-field
-            label="Confirm Password"
-            :type="{ 'is-danger': errors[0], 'is-success': valid }"
-            :message="errors"
-          >
-            <b-input type="password" v-model="confirmation"></b-input>
-          </b-field>
-        </ValidationProvider>
-
-        <ValidationProvider
-          rules="required"
-          name="Subject"
-          v-slot="{ errors, valid }"
-        >
-          <b-field
-            label="Subject"
-            :message="errors"
-            :type="{ 'is-danger': errors[0], 'is-success': valid }"
-          >
-            <b-select placeholder="Select a subject" v-model="subject">
-              <option value>None</option>
-              <option value="1">Option 1</option>
-              <option value="2">Option 2</option>
-            </b-select>
-          </b-field>
-        </ValidationProvider>
-
-        <ValidationProvider
-          rules="required|length:2"
-          name="Drinks"
-          v-slot="{ errors }"
-        >
-          <div class="block">
-            <b-checkbox v-model="choices" native-value="Coffee"
-              >Coffee</b-checkbox
-            >
-            <b-checkbox v-model="choices" native-value="Tea">Tea</b-checkbox>
-            <b-checkbox v-model="choices" native-value="Soda">Soda</b-checkbox>
-            <p class="has-text-danger">{{ errors[0] }}</p>
-          </div>
-        </ValidationProvider>
-
-        <div class="buttons">
-          <button class="button is-success" @click="handleSubmit(submit)">
-            <span class="icon is-small">
-              <i class="fas fa-check"></i>
-            </span>
-            <span>Submit</span>
-          </button>
-
-          <button class="button" @click="resetForm">
-            <span class="icon is-small">
-              <i class="fas fa-redo"></i>
-            </span>
-            <span>Reset</span>
-          </button>
+    <a href="/" style="text-align: center">
+      <div class="logo-section">
+        <div class="logo-text">
+          <span style="color: dodgerblue">Easy</span
+          ><span style="color: black">Accomod</span>
         </div>
-      </section>
-    </ValidationObserver>
+      </div>
+    </a>
+    <div class="form-content">
+      <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
+        <!-- the "handleSubmit" function on the slot-scope executes the callback if validation was successfull -->
+        <section class="section">
+          <p
+            style="padding-bottom: 1rem; font-size: 1.5rem; text-align: center"
+          >
+            ĐĂNG KÝ
+          </p>
+          <ValidationProvider
+            rules="required|email"
+            name="Email"
+            v-slot="{ errors, valid }"
+          >
+            <b-field
+              :type="{ 'is-danger': errors[0], 'is-success': valid }"
+              :message="errors"
+            >
+              <b-input
+                type="email"
+                v-model="email"
+                placeholder="Email"
+              ></b-input>
+            </b-field>
+          </ValidationProvider>
+
+          <ValidationProvider
+            rules="required"
+            name="Username"
+            v-slot="{ errors, valid }"
+          >
+            <b-field
+              :type="{ 'is-danger': errors[0], 'is-success': valid }"
+              :message="errors"
+            >
+              <b-input
+                type="text"
+                v-model="username"
+                placeholder="Họ và tên"
+              ></b-input>
+            </b-field>
+          </ValidationProvider>
+
+          <ValidationProvider
+            rules="required"
+            vid="password"
+            name="Password"
+            v-slot="{ errors, valid }"
+          >
+            <b-field
+              :type="{ 'is-danger': errors[0], 'is-success': valid }"
+              :message="errors"
+            >
+              <b-input
+                type="password"
+                v-model="password"
+                placeholder="Mật khẩu"
+              ></b-input>
+            </b-field>
+          </ValidationProvider>
+
+          <ValidationProvider
+            rules="required|confirmed:password"
+            name="Password Confirmation"
+            v-slot="{ errors, valid }"
+          >
+            <b-field
+              :type="{ 'is-danger': errors[0], 'is-success': valid }"
+              :message="errors"
+            >
+              <b-input
+                type="password"
+                v-model="confirmation"
+                placeholder="Nhập lại mật khẩu"
+              ></b-input>
+            </b-field>
+          </ValidationProvider>
+
+          <p style="text-align: center">
+            Bạn đã có tải khoản?
+            <router-link :to="{ name: 'Login' }">Đăng nhập</router-link>
+          </p>
+
+          <div class="buttons">
+            <button
+              class="button is-info is-fullwidth"
+              @click="handleSubmit(submit)"
+            >
+              <span>Submit</span>
+            </button>
+
+            <button class="button is-fullwidth" @click="resetForm">
+              <span>Reset</span>
+            </button>
+          </div>
+        </section>
+      </ValidationObserver>
+    </div>
   </div>
 </template>
 
 <script>
 import { ValidationObserver, ValidationProvider } from "vee-validate";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   components: {
@@ -109,24 +120,34 @@ export default {
   },
   data: () => ({
     email: "",
+    username: "",
     password: "",
-    confirmation: "",
-    subject: "",
-    choices: []
+    confirmation: ""
   }),
+  computed: {
+    ...mapGetters(["errors"])
+  },
   created() {
     this.$emit("update:layout", "AuthLayout");
   },
   methods: {
+    ...mapActions("AUTH", ["sendRegisterRequest"]),
     submit() {
-      console.log("Form submitted yay!");
+      this.sendRegisterRequest({
+        name: this.username,
+        email: this.email,
+        password: this.password,
+        password_confirmation: this.confirmation
+      }).then(() => {
+        this.$router.push({ name: "Home" });
+      });
     },
     resetForm() {
       this.email = "";
+      this.username = "";
       this.password = "";
       this.confirmation = "";
-      this.subject = "";
-      this.choices = [];
+      this.phone = "";
       requestAnimationFrame(() => {
         this.$refs.observer.reset();
       });
@@ -134,3 +155,36 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.form-wrapper {
+  background-color: white;
+  width: 40vh;
+  margin: 0 auto;
+  height: 100%;
+  padding-top: 100px;
+}
+
+.form-content {
+  padding: 20px;
+  -moz-box-shadow: 0 0 5px 5px #f1f1f1;
+  -webkit-box-shadow: 0 0 5px 5px #f1f1f1;
+  box-shadow: 0 0 5px 5px #f1f1f1;
+}
+
+.logo-section {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  padding: 20px;
+}
+
+.logo-text {
+  padding-top: 5px;
+  padding-left: 5px;
+  align-items: center;
+  font-size: 30px;
+  font-weight: bold;
+  color: lightcoral;
+}
+</style>

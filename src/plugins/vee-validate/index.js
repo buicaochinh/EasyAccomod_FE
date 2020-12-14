@@ -1,4 +1,10 @@
-import { required, confirmed, length, email } from "vee-validate/dist/rules";
+import {
+  required,
+  confirmed,
+  length,
+  email,
+  numeric
+} from "vee-validate/dist/rules";
 import { extend } from "vee-validate";
 
 extend("required", {
@@ -19,4 +25,9 @@ extend("confirmed", {
 extend("length", {
   ...length,
   message: "This field must have 2 options"
+});
+
+extend("phone", {
+  ...numeric,
+  message: "Phải là số điện thoại"
 });

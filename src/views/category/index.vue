@@ -1,8 +1,10 @@
 <template>
   <div class="container">
-    <h3 class="title-comm">
-      <span class="title-holder">{{ $route.params.id }}</span>
-    </h3>
+    <div class="section">
+      <h3 class="title-comm">
+        <span class="title-holder">{{ $route.params.id }}</span>
+      </h3>
+    </div>
   </div>
 </template>
 

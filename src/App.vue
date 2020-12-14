@@ -8,6 +8,7 @@
 
 <script>
 import DefaultLayout from "./layouts/DefaultLayout";
+import AuthLayout from "./layouts/AuthLayout";
 export default {
   data() {
     return {
@@ -15,7 +16,8 @@ export default {
     };
   },
   components: {
-    DefaultLayout
+    DefaultLayout,
+    AuthLayout
   }
 };
 </script>

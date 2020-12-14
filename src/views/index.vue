@@ -1,11 +1,16 @@
 <template>
   <div class="container">
-    Hello Home Page
+    <div class="section">
+      Hello Home Page
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  components: {}
+  components: {},
+  created() {
+    this.$emit("update:layout", "DefaultLayout");
+  }
 };
 </script>

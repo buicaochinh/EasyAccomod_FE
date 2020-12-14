@@ -19,13 +19,23 @@
 
       <template slot="end">
         <b-navbar-item tag="div">
-          <div class="buttons">
+          <div class="buttons" v-if="!user">
             <router-link class="button is-info" :to="{ name: 'Register' }">
               <strong>Đăng ký</strong>
             </router-link>
             <router-link class="button is-light" :to="{ name: 'Login' }">
               Đăng nhập
             </router-link>
+          </div>
+          <div v-if="user">
+            <b-navbar-dropdown :label="user.name">
+              <b-navbar-item>
+                <router-link to="#">Cá nhân</router-link>
+              </b-navbar-item>
+              <b-navbar-item @click="logout">
+                <a>Đăng xuất</a>
+              </b-navbar-item>
+            </b-navbar-dropdown>
           </div>
         </b-navbar-item>
       </template>
@@ -56,7 +66,7 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch("AUTH/getUserData");
+    this.$store.dispatch("AUTH/getUserData").catch();
   },
   computed: {
     ...mapGetters("AUTH", ["user"])
@@ -75,6 +85,16 @@ a {
 }
 
 a:hover {
+  color: dodgerblue;
+}
+
+label {
+  color: #2c3e50;
+}
+.navbar-link {
+  color: dodgerblue;
+}
+.navbar-link:after {
   color: dodgerblue;
 }
 </style>
