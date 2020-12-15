@@ -18,10 +18,14 @@
               <p class="phone">Số điện thoại: <strong>N/A</strong></p>
             </div>
             <div class="buttons">
-              <router-link to="#" class="button is-info is-fullwidth"
+              <router-link
+                :to="{ name: 'ChangeInformation' }"
+                class="button is-info is-fullwidth"
                 >Chỉnh sửa thông tin</router-link
               >
-              <router-link to="#" class="button is-light is-fullwidth"
+              <router-link
+                :to="{ name: 'ChangePassword' }"
+                class="button is-light is-fullwidth"
                 >Thay đổi mật khẩu</router-link
               >
             </div>

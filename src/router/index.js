@@ -8,6 +8,8 @@ import Category from "../views/category";
 import User from "../views/user";
 import Room from "../views/room";
 import NotFound from "../views/404";
+import ChangePassword from "../views/user/changePassword";
+import ChangeInformation from "../views/user/changeInfomation";
 
 Vue.use(VueRouter);
 
@@ -56,6 +58,16 @@ const routes = [
     path: "/room/:slug",
     name: "Room",
     component: Room
+  },
+  {
+    path: "/user/change-password",
+    name: "ChangePassword",
+    component: ChangePassword
+  },
+  {
+    path: "/user/change-information",
+    name: "ChangeInformation",
+    component: ChangeInformation
   }
 ];
 
