@@ -1,16 +1,29 @@
 <template>
   <div class="container">
     <div class="section">
-      <h3 class="title-comm">
-        <span class="title-holder">{{ $route.params.id }}</span>
-      </h3>
+      <div class="columns">
+        <div class="column is-three-quarters">
+          <h4 class="title is-4">Category Name</h4>
+          <RoomBox />
+          <RoomBox />
+          <RoomBox />
+          <RoomBox />
+          <RoomBox />
+        </div>
+        <div class="column">
+          <h5 class="title is-5">Category Name</h5>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import RoomBox from "../../components/RoomBox";
 export default {
-  components: {},
+  components: {
+    RoomBox
+  },
   data() {
     return {
       rooms: []

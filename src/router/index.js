@@ -5,7 +5,9 @@ import Home from "../views";
 import Login from "../views/login";
 import Register from "../views/register";
 import Category from "../views/category";
-import User from "../views/User";
+import User from "../views/user";
+import Room from "../views/room";
+import NotFound from "../views/404";
 
 Vue.use(VueRouter);
 
@@ -18,6 +20,11 @@ const guest = (to, from, next) => {
 };
 
 const routes = [
+  {
+    path: "*",
+    name: "404",
+    component: NotFound
+  },
   {
     path: "/",
     name: "Home",
@@ -44,6 +51,11 @@ const routes = [
     path: "/user",
     name: "User",
     component: User
+  },
+  {
+    path: "/room/:slug",
+    name: "Room",
+    component: Room
   }
 ];
 

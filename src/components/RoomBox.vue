@@ -1,0 +1,46 @@
+<template>
+  <div class="box">
+    <article class="media">
+      <div class="media-left">
+        <figure class="image is-128x128">
+          <img
+            src="https://bulma.io/images/placeholders/128x128.png"
+            alt="Image"
+          />
+        </figure>
+      </div>
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <strong>John Smith</strong> <small>@johnsmith</small>
+            <small>31m</small>
+            <br />
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
+            efficitur sit amet massa fringilla egestas. Nullam condimentum
+            luctus turpis.
+          </p>
+        </div>
+        <div class="field is-grouped">
+          <p class="control">
+            <b-rate :value="4" show-score disabled />
+          </p>
+          <p class="control" style="margin-left: auto">
+            <button class="button is-small is-danger is-outlined">
+              <b-icon size="is-small" icon="heart" />
+            </button>
+          </p>
+        </div>
+      </div>
+    </article>
+  </div>
+</template>
+
+<script>
+export default {};
+</script>
+
+<style scoped>
+div.box:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+</style>
