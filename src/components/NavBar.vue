@@ -19,23 +19,30 @@
 
       <template slot="end">
         <b-navbar-item tag="div">
-          <div class="buttons" v-if="!user">
-            <router-link class="button is-info" :to="{ name: 'Register' }">
+          <div class="buttons">
+            <router-link
+              v-if="!user"
+              class="button is-info"
+              :to="{ name: 'Register' }"
+            >
               <strong>Đăng ký</strong>
             </router-link>
-            <router-link class="button is-light" :to="{ name: 'Login' }">
+            <router-link
+              v-if="!user"
+              class="button is-light"
+              :to="{ name: 'Login' }"
+            >
               Đăng nhập
             </router-link>
-          </div>
-          <div v-if="user">
-            <b-navbar-dropdown :label="user.name">
-              <b-navbar-item>
-                <router-link to="#">Cá nhân</router-link>
-              </b-navbar-item>
-              <b-navbar-item @click="logout">
-                <a>Đăng xuất</a>
-              </b-navbar-item>
-            </b-navbar-dropdown>
+            <router-link
+              v-if="user"
+              class="button is-light"
+              :to="{ name: 'User' }"
+              >{{ user.name }}</router-link
+            >
+            <a v-if="user" class="button is-warning" @click="logout"
+              >Đăng xuất</a
+            >
           </div>
         </b-navbar-item>
       </template>
@@ -90,11 +97,5 @@ a:hover {
 
 label {
   color: #2c3e50;
-}
-.navbar-link {
-  color: dodgerblue;
-}
-.navbar-link:after {
-  color: dodgerblue;
 }
 </style>

@@ -30,6 +30,8 @@
                 type="email"
                 v-model="email"
                 placeholder="Email"
+                icon-pack="fas"
+                icon="envelope"
               ></b-input>
             </b-field>
           </ValidationProvider>
@@ -47,6 +49,8 @@
                 type="text"
                 v-model="username"
                 placeholder="Họ và tên"
+                icon-pack="fas"
+                icon="user"
               ></b-input>
             </b-field>
           </ValidationProvider>
@@ -65,6 +69,8 @@
                 type="password"
                 v-model="password"
                 placeholder="Mật khẩu"
+                icon-pack="fas"
+                icon="key"
               ></b-input>
             </b-field>
           </ValidationProvider>
@@ -82,11 +88,14 @@
                 type="password"
                 v-model="confirmation"
                 placeholder="Nhập lại mật khẩu"
+                icon-pack="fas"
+                icon="key"
+                @keyup.native="enterKey"
               ></b-input>
             </b-field>
           </ValidationProvider>
 
-          <p style="text-align: center">
+          <p style="text-align: center; margin: 1rem 0">
             Bạn đã có tải khoản?
             <router-link :to="{ name: 'Login' }">Đăng nhập</router-link>
           </p>
@@ -103,6 +112,9 @@
               <span>Reset</span>
             </button>
           </div>
+          <p style="text-align: center">
+            <router-link :to="{ name: 'Home' }">Trang chủ</router-link>
+          </p>
         </section>
       </ValidationObserver>
     </div>
@@ -151,6 +163,11 @@ export default {
       requestAnimationFrame(() => {
         this.$refs.observer.reset();
       });
+    },
+    enterKey(event) {
+      if (event.key === "Enter") {
+        this.submit();
+      }
     }
   }
 };
@@ -185,6 +202,13 @@ export default {
   align-items: center;
   font-size: 30px;
   font-weight: bold;
-  color: lightcoral;
+}
+
+a {
+  color: dodgerblue;
+}
+
+a:hover {
+  color: #2c3e50;
 }
 </style>

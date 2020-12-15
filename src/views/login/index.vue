@@ -31,6 +31,8 @@
                 type="email"
                 v-model="email"
                 placeholder="Email"
+                icon-pack="fas"
+                icon="envelope"
               ></b-input>
             </b-field>
           </ValidationProvider>
@@ -49,10 +51,13 @@
                 type="password"
                 v-model="password"
                 placeholder="Password"
+                icon-pack="fas"
+                icon="key"
+                @keyup.native="enterKey"
               ></b-input>
             </b-field>
           </ValidationProvider>
-          <p style="text-align: center">
+          <p style="text-align: center; margin: 1rem 0">
             Bạn chưa có tải khoản?
             <router-link :to="{ name: 'Register' }">Đăng ký</router-link>
           </p>
@@ -69,6 +74,9 @@
               <span>Reset</span>
             </button>
           </div>
+          <p style="text-align: center">
+            <router-link :to="{ name: 'Home' }">Trang chủ</router-link>
+          </p>
         </section>
       </ValidationObserver>
     </div>
@@ -112,6 +120,11 @@ export default {
       requestAnimationFrame(() => {
         this.$refs.observer.reset();
       });
+    },
+    enterKey(event) {
+      if (event.key === "Enter") {
+        this.submit();
+      }
     }
   }
 };
@@ -146,6 +159,13 @@ export default {
   align-items: center;
   font-size: 30px;
   font-weight: bold;
-  color: lightcoral;
+}
+
+a {
+  color: dodgerblue;
+}
+
+a:hover {
+  color: #2c3e50;
 }
 </style>
