@@ -9,6 +9,14 @@ import User from "../views/User";
 
 Vue.use(VueRouter);
 
+const guest = (to, from, next) => {
+  if (!localStorage.getItem("authToken")) {
+    return next();
+  } else {
+    return next("/");
+  }
+};
+
 const routes = [
   {
     path: "/",
@@ -18,11 +26,13 @@ const routes = [
   {
     path: "/login",
     name: "Login",
+    beforeEnter: guest,
     component: Login
   },
   {
     path: "/register",
     name: "Register",
+    beforeEnter: guest,
     component: Register
   },
   {
