@@ -35,6 +35,12 @@
               Đăng nhập
             </router-link>
             <router-link
+              v-if="user && user.id_role === 3"
+              class="button is-success"
+              :to="{ name: 'NewPost' }"
+              >Đăng tin</router-link
+            >
+            <router-link
               v-if="user"
               class="button is-light"
               :to="{ name: 'User' }"
@@ -51,8 +57,6 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-
 export default {
   data() {
     return {
@@ -72,11 +76,10 @@ export default {
       ]
     };
   },
-  created() {
-    this.$store.dispatch("AUTH/getUserData").catch();
-  },
   computed: {
-    ...mapGetters("AUTH", ["user"])
+    user() {
+      return this.$store.getters["AUTH/user"];
+    }
   },
   methods: {
     logout() {

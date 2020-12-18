@@ -22,7 +22,6 @@ const getClient = () => {
       if (error.response.status === 422) {
         store.commit("setErrors", error.response.data.errors);
       } else if (error.response.status === 401) {
-        console.log(error);
         store.commit("AUTH/setUserData", null);
         localStorage.removeItem("authToken");
       } else {

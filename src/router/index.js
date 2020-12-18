@@ -10,6 +10,7 @@ import Room from "../views/room";
 import NotFound from "../views/404";
 import ChangePassword from "../views/user/changePassword";
 import ChangeInformation from "../views/user/changeInfomation";
+import NewPost from "../views/newPost";
 
 Vue.use(VueRouter);
 
@@ -60,14 +61,19 @@ const routes = [
     component: Room
   },
   {
-    path: "/user/change-password",
+    path: "/user/change_password",
     name: "ChangePassword",
     component: ChangePassword
   },
   {
-    path: "/user/change-information",
+    path: "/user/change_information",
     name: "ChangeInformation",
     component: ChangeInformation
+  },
+  {
+    path: "/new_post",
+    name: "NewPost",
+    component: NewPost
   }
 ];
 

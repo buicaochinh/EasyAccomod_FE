@@ -60,6 +60,18 @@
                   @keyup.native="enterKey"
                 ></b-input>
               </b-field>
+              <div
+                v-if="status === 1"
+                class="notification is-success is-light mb-1"
+              >
+                Đổi mật khẩu thành công!
+              </div>
+              <div
+                v-if="status === 2"
+                class="notification is-danger is-light mb-1"
+              >
+                Mật khẩu không đúng
+              </div>
             </ValidationProvider>
             <div class="buttons">
               <button class="button is-success" @click="handleSubmit(submit)">
@@ -68,6 +80,9 @@
               <router-link :to="{ name: 'User' }" class="button is-danger">
                 Hủy
               </router-link>
+              <button class="button" @click="resetForm">
+                <span>Reset</span>
+              </button>
             </div>
           </div>
         </ValidationObserver>
@@ -88,12 +103,32 @@ export default {
     return {
       oldPassword: "",
       newPassword: "",
-      confirmNewPassword: ""
+      confirmNewPassword: "",
+      status: 0
     };
   },
   methods: {
     submit() {
-      console.log("Submit");
+      this.$store
+        .dispatch("AUTH/sendChangePasswordRequest", {
+          old_password: this.oldPassword,
+          new_password: this.newPassword,
+          password_confirmation: this.confirmNewPassword
+        })
+        .then(() => {
+          this.status = 1;
+        })
+        .catch(() => {
+          this.status = 2;
+        });
+    },
+    resetForm() {
+      this.oldPassword = "";
+      this.newPassword = "";
+      this.confirmNewPassword = "";
+      requestAnimationFrame(() => {
+        this.$refs.observer.reset();
+      });
     },
     enterKey(event) {
       if (event.key === "Enter") {
@@ -110,10 +145,5 @@ div.wrapper {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.form {
-  width: 40rem;
-  margin-bottom: 1rem;
 }
 </style>

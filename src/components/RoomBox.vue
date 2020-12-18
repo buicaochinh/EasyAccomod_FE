@@ -3,16 +3,20 @@
     <article class="media">
       <div class="media-left">
         <figure class="image is-128x128">
-          <img
-            src="https://bulma.io/images/placeholders/128x128.png"
-            alt="Image"
-          />
+          <router-link :to="{ name: 'Room' }">
+            <img
+              src="https://bulma.io/images/placeholders/128x128.png"
+              alt="Image"
+            />
+          </router-link>
         </figure>
       </div>
       <div class="media-content">
         <div class="content">
           <p>
-            <strong>John Smith</strong> <small>@johnsmith</small>
+            <router-link :to="{ name: 'Room' }">
+              <strong>John Smith</strong>
+            </router-link>
             <small>31m</small>
             <br />
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
@@ -42,5 +46,9 @@ export default {};
 <style scoped>
 div.box:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+a {
+  color: #2c3e50;
 }
 </style>

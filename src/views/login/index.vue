@@ -18,6 +18,9 @@
           >
             ĐĂNG NHẬP
           </p>
+          <div v-if="wrongCred" class="notification is-danger is-light">
+            Đăng nhập không thành công!
+          </div>
           <ValidationProvider
             rules="required|email"
             name="Email"
@@ -94,10 +97,21 @@ export default {
   },
   data: () => ({
     email: "",
-    password: ""
+    password: "",
+    wrongCred: false
   }),
   computed: {
     ...mapGetters(["errors"])
+  },
+  watch: {
+    email(val) {
+      this.wrongCred = false;
+      return val;
+    },
+    password(val) {
+      this.wrongCred = false;
+      return val;
+    }
   },
   created() {
     this.$emit("update:layout", "AuthLayout");
@@ -108,17 +122,20 @@ export default {
       this.sendLoginRequest({
         email: this.email,
         password: this.password
-      })
-        .then(() => {
+      }).then(response => {
+        if (typeof response === "undefined") {
           this.$router.push({ name: "Home" });
-        })
-        .catch(e => console.log(e));
+        } else {
+          this.wrongCred = true;
+        }
+      });
     },
     resetForm() {
       this.email = "";
       this.password = "";
       requestAnimationFrame(() => {
         this.$refs.observer.reset();
+        this.wrongCred = false;
       });
     },
     enterKey(event) {

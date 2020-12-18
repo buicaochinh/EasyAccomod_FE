@@ -5,17 +5,25 @@
         <div class="column is-one-quarter">
           <div class="img-wrapper">
             <figure class="image is-128x128">
-              <img
-                class="is-rounded"
-                src="https://bulma.io/images/placeholders/128x128.png"
-              />
+              <img class="is-rounded" src="@/assets/user.png" />
             </figure>
           </div>
           <div class="section">
             <div class="content">
-              <p class="name">Họ và tên: <strong>Bùi Cao Chinh</strong></p>
-              <p class="email">Email: <strong>123456@gmail.com</strong></p>
-              <p class="phone">Số điện thoại: <strong>N/A</strong></p>
+              <p class="name">
+                Họ và tên: <strong>{{ user ? user.name : "N/A" }} </strong>
+              </p>
+              <p class="email">
+                Email: <strong>{{ user ? user.email : "N/A" }}</strong>
+              </p>
+              <p class="phone">
+                Số điện thoại:
+                <strong>{{ user && user.phone ? user.phone : "N/A" }}</strong>
+              </p>
+              <p class="address">
+                Địa chỉ:
+                <strong>{{ user ? user.detail_address : "N/A" }} </strong>
+              </p>
             </div>
             <div class="buttons">
               <router-link
@@ -33,7 +41,10 @@
         </div>
         <div class="column">
           <RoomTable title="Phòng trọ ưa thích" />
-          <RoomTable title="Phòng trọ đã đăng" />
+          <RoomTable
+            v-if="user && user.id_role === 3"
+            title="Phòng trọ đã đăng"
+          />
         </div>
       </div>
     </div>
@@ -41,16 +52,16 @@
 </template>
 
 <script>
-// import { mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import RoomTable from "../../components/RoomTable";
 
 export default {
-  // created() {
-  //   this.$store.dispatch("AUTH/getUserData").catch();
-  // },
-  // computed: {
-  //   ...mapGetters("AUTH", ["user"])
-  // }
+  created() {
+    this.$store.dispatch("AUTH/getUserData");
+  },
+  computed: {
+    ...mapGetters("AUTH", ["user"])
+  },
   components: {
     RoomTable
   }

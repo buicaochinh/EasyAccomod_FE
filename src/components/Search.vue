@@ -11,25 +11,37 @@
         </b-field>
 
         <b-field label="Tỉnh/Thành phố" type="is-info">
-          <b-select placeholder="Hà Nội">
-            <option value="Hà Nội">
-              Hà Nội
+          <b-select placeholder="Tỉnh/Thành phố" v-model="provinceFilter">
+            <option
+              v-for="(province, index) in provinces"
+              :key="index"
+              :value="province.id"
+            >
+              {{ province.name }}
             </option>
           </b-select>
         </b-field>
 
         <b-field label="Quận/Huyện" type="is-info">
-          <b-select placeholder="Quận/Huyện">
-            <option value="Cầu Giấy">
-              Cầu Giấy
+          <b-select placeholder="Quận/Huyện" v-model="districtFilter">
+            <option
+              v-for="(district, index) in districts"
+              :key="index"
+              :value="district.id"
+            >
+              {{ district.name }}
             </option>
           </b-select>
         </b-field>
 
-        <b-field label="Đường/Phố" type="is-info">
-          <b-select placeholder="Khu vực">
-            <option value="Xuân Thủy">
-              Xuân Thủy
+        <b-field label="Phường/Xã" type="is-info" v-model="wardFilter">
+          <b-select placeholder="Phường">
+            <option
+              v-for="(ward, index) in wards"
+              :key="index"
+              :value="ward.id"
+            >
+              {{ ward.name }}
             </option>
           </b-select>
         </b-field>
@@ -65,7 +77,44 @@
 </template>
 
 <script>
-export default {};
+import HomeServices from "../apis/modules/home.js";
+export default {
+  data() {
+    return {
+      provinceFilter: null,
+      districtFilter: null,
+      wardFilter: null,
+      provinces: [],
+      districts: [],
+      wards: []
+    };
+  },
+  watch: {
+    provinceFilter(val) {
+      setTimeout(() => {
+        HomeServices.getDistrictsByIdProvince(val).then(response => {
+          this.districts = response.data.districts;
+        });
+      }, 500);
+      return val;
+    },
+    districtFilter(val) {
+      setTimeout(() => {
+        HomeServices.getWardsByIdDistrict(val).then(response => {
+          this.wards = response.data.wards;
+        });
+      }, 500);
+      return val;
+    }
+  },
+  created() {
+    setTimeout(() => {
+      HomeServices.getAllProvinces().then(response => {
+        this.provinces = response.data.provinces;
+      });
+    }, 500);
+  }
+};
 </script>
 
 <style scoped>

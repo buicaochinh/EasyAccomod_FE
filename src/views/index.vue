@@ -51,13 +51,25 @@
 import Search from "../components/Search";
 import RoomCard from "../components/RoomCard";
 import Banner from "../components/Banner";
+
+import HomeServices from "../apis/modules/home";
+
 export default {
   components: {
     Banner,
     Search,
     RoomCard
   },
-  created() {
+  data() {
+    return {
+      noiBat: [],
+      giaTot: []
+    };
+  },
+  async created() {
+    const response = await HomeServices.getRoom();
+    this.noiBat = response.data.nine_post_on_top;
+    this.giaTot = response.data.six_post_lastest;
     this.$emit("update:layout", "DefaultLayout");
   }
 };
