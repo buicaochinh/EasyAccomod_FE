@@ -92,6 +92,8 @@
 </template>
 
 <script>
+import UserServices from "../../../apis/modules/user";
+
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 
 export default {
@@ -109,12 +111,12 @@ export default {
   },
   methods: {
     submit() {
-      this.$store
-        .dispatch("AUTH/sendChangePasswordRequest", {
-          old_password: this.oldPassword,
-          new_password: this.newPassword,
-          password_confirmation: this.confirmNewPassword
-        })
+      const dataPack = {
+        old_password: this.oldPassword,
+        new_password: this.newPassword,
+        password_confirmation: this.confirmNewPassword
+      };
+      UserServices.changePassword(dataPack)
         .then(() => {
           this.status = 1;
         })

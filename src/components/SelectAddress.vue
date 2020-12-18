@@ -1,15 +1,7 @@
 <template>
   <div class="wrapper">
-    <div class="container">
-      <section class="section">
-        <b-field label="Thể loại" type="is-info">
-          <b-select placeholder="Thể loại" expanded>
-            <option value="Phòng trọ">
-              Phòng trọ
-            </option>
-          </b-select>
-        </b-field>
-
+    <section class="columns">
+      <div class="column">
         <b-field label="Tỉnh/Thành phố" type="is-info">
           <b-select
             placeholder="Tỉnh/Thành phố"
@@ -25,7 +17,8 @@
             </option>
           </b-select>
         </b-field>
-
+      </div>
+      <div class="column">
         <b-field label="Quận/Huyện" type="is-info">
           <b-select placeholder="Quận/Huyện" v-model="districtFilter" expanded>
             <option
@@ -37,9 +30,10 @@
             </option>
           </b-select>
         </b-field>
-
-        <b-field label="Phường/Xã" type="is-info" v-model="wardFilter">
-          <b-select placeholder="Phường/Xã" expanded>
+      </div>
+      <div class="column">
+        <b-field label="Phường/Xã" type="is-info">
+          <b-select placeholder="Phường/Xã" v-model="wardFilter" expanded>
             <option
               v-for="(ward, index) in wards"
               :key="index"
@@ -49,34 +43,8 @@
             </option>
           </b-select>
         </b-field>
-
-        <b-field label="Khoảng giá" type="is-info">
-          <b-select placeholder="Khoảng giá" expanded>
-            <option value="Khoảng giá">
-              1000000
-            </option>
-          </b-select>
-        </b-field>
-
-        <b-field label="Diện tích" type="is-info">
-          <b-select placeholder="Diện tích" expanded>
-            <option value="35m2">
-              35m2
-            </option>
-          </b-select>
-        </b-field>
-
-        <b-field label="Tiện ích">
-          <b-checkbox type="is-info" expanded>
-            Tủ
-          </b-checkbox>
-        </b-field>
-
-        <button class="button is-info" style="margin-top: 2rem">
-          Tim kiếm
-        </button>
-      </section>
-    </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -109,6 +77,9 @@ export default {
         });
       }, 500);
       return val;
+    },
+    wardFilter(val) {
+      this.$emit("wardSelect", val);
     }
   },
   created() {
@@ -121,8 +92,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.wrapper {
-  background-color: #f5f5f5;
-}
-</style>
+<style scoped></style>

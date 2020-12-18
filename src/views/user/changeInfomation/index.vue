@@ -10,6 +10,12 @@
         <div class="section">
           <div class="content">
             <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
+              <div v-if="status === 1" class="notification is-success is-light">
+                Cập nhật thành công
+              </div>
+              <div v-if="status === 2" class="notification is-danger is-light">
+                Cập nhật thất bại
+              </div>
               <ValidationProvider
                 rules="required"
                 name="Username"
@@ -51,14 +57,14 @@
                 v-slot="{ errors, valid }"
               >
                 <b-field
-                  label="Địa chỉ:"
+                  label="Địa chỉ"
                   :type="{ 'is-danger': errors[0], 'is-success': valid }"
                   :message="errors"
                 >
                   <b-input
                     type="text"
                     v-model="address"
-                    placeholder="Vui lòng nhập dịa chỉ"
+                    placeholder="Địa chỉ"
                   ></b-input>
                 </b-field>
               </ValidationProvider>
@@ -100,7 +106,8 @@
                   ></b-input>
                 </b-field>
               </ValidationProvider>
-              <div class="buttons">
+              <SelectAddress @wardSelect="idWard = $event" />
+              <div class="buttons is-centered">
                 <button class="button is-info" @click="handleSubmit(submit)">
                   <span>Chấp nhận</span>
                 </button>
@@ -120,18 +127,25 @@
 </template>
 
 <script>
+import UserServices from "../../../apis/modules/user";
+
 import { ValidationObserver, ValidationProvider } from "vee-validate";
+import SelectAddress from "../../../components/SelectAddress";
 export default {
   components: {
     ValidationObserver,
-    ValidationProvider
+    ValidationProvider,
+    SelectAddress
   },
   data: () => ({
     email: "",
     username: "",
     address: "",
     nationalIdNumber: "",
-    phone: ""
+    phone: "",
+    idWard: -1,
+    status: 0,
+    message: ""
   }),
   mounted() {
     if (this.$store.getters["AUTH/user"] === null) {
@@ -152,7 +166,30 @@ export default {
   },
   methods: {
     submit() {
-      console.log("Submit!");
+      let dataPack = {};
+      if (this.idWard !== -1) {
+        dataPack = {
+          name: this.username,
+          detail_address: this.address,
+          national_id_number: this.nationalIdNumber,
+          phone: this.phone,
+          id_ward: this.idWard
+        };
+      } else {
+        dataPack = {
+          name: this.username,
+          detail_address: this.address,
+          national_id_number: this.nationalIdNumber,
+          phone: this.phone
+        };
+      }
+      UserServices.editProfile(dataPack).then(() => {
+        if (this.$store.getters.errors.length === 0) {
+          this.status = 1;
+        } else {
+          this.status = 2;
+        }
+      });
     },
     resetForm() {
       if (this.$store.getters["AUTH/user"] === null) {
@@ -189,5 +226,9 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.content {
+  width: 50vw;
 }
 </style>

@@ -21,32 +21,38 @@
         <b-navbar-item tag="div">
           <div class="buttons">
             <router-link
-              v-if="!user"
+              v-if="!$store.getters['AUTH/user']"
               class="button is-info"
               :to="{ name: 'Register' }"
             >
               <strong>Đăng ký</strong>
             </router-link>
             <router-link
-              v-if="!user"
+              v-if="!$store.getters['AUTH/user']"
               class="button is-light"
               :to="{ name: 'Login' }"
             >
               Đăng nhập
             </router-link>
             <router-link
-              v-if="user && user.id_role === 3"
+              v-if="
+                $store.getters['AUTH/user'] &&
+                  $store.getters['AUTH/user'].id_role === 3
+              "
               class="button is-success"
               :to="{ name: 'NewPost' }"
               >Đăng tin</router-link
             >
             <router-link
-              v-if="user"
+              v-if="$store.getters['AUTH/user']"
               class="button is-light"
               :to="{ name: 'User' }"
-              >{{ user.name }}</router-link
+              >{{ $store.getters["AUTH/user"].name }}</router-link
             >
-            <a v-if="user" class="button is-warning" @click="logout"
+            <a
+              v-if="$store.getters['AUTH/user']"
+              class="button is-warning"
+              @click="logout"
               >Đăng xuất</a
             >
           </div>
@@ -76,10 +82,8 @@ export default {
       ]
     };
   },
-  computed: {
-    user() {
-      return this.$store.getters["AUTH/user"];
-    }
+  created() {
+    this.$store.dispatch("AUTH/getUserData");
   },
   methods: {
     logout() {

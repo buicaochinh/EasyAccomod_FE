@@ -1,5 +1,4 @@
 import AuthServices from "../../apis/modules/auth.js";
-import UserServices from "../../apis/modules/user.js";
 
 const state = {
   userData: null
@@ -43,11 +42,6 @@ const actions = {
     const response = await AuthServices.register(data);
     dispatch("getUserData");
     localStorage.setItem("authToken", response.data.access_token);
-  },
-  async sendChangePasswordRequest({ commit, dispatch }, data) {
-    commit("setErrors", {}, { root: true });
-    await UserServices.changePassword(data);
-    dispatch("getUserData");
   },
   async sendLogoutRequest({ commit }) {
     await AuthServices.logout();
