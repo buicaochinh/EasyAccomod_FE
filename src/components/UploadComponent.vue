@@ -40,9 +40,8 @@ export default {
   watch: {
     dropFiles(val) {
       // let images = this.createImage(val);
-      // this.$emit("addFiles", images);
-      // return images;
-      console.log(val);
+      this.$emit("addFiles", val);
+      return val;
     }
   },
   methods: {

@@ -30,6 +30,31 @@
         </ValidationProvider>
         <div class="columns">
           <ValidationProvider
+            rules="required"
+            name="Category"
+            v-slot="{ errors }"
+            class="column"
+          >
+            <b-field
+              label="Danh mục: "
+              :type="{ 'is-danger': errors[0], 'is-info': true }"
+              :message="errors"
+            >
+              <b-select
+                placeholder="Danh mục"
+                v-model="categorySelected"
+                expanded
+              >
+                <option
+                  v-for="(category, index) in categories"
+                  :key="index"
+                  :value="category.id"
+                  >{{ category.name }}</option
+                >
+              </b-select>
+            </b-field>
+          </ValidationProvider>
+          <ValidationProvider
             class="column"
             rules="required"
             name="Price"
@@ -86,54 +111,7 @@
             </b-field>
           </ValidationProvider>
         </div>
-        <div class="columns">
-          <ValidationProvider
-            rules="required"
-            name="Category"
-            v-slot="{ errors }"
-            class="column is-one-fifth"
-          >
-            <b-field
-              label="Danh mục: "
-              :type="{ 'is-danger': errors[0], 'is-info': true }"
-              :message="errors"
-            >
-              <b-select
-                placeholder="Danh mục"
-                v-model="categorySelected"
-                expanded
-              >
-                <option
-                  v-for="(category, index) in categories"
-                  :key="index"
-                  :value="category.id"
-                  >{{ category.name }}</option
-                >
-              </b-select>
-            </b-field>
-          </ValidationProvider>
-          <ValidationProvider
-            :rules="{
-              required: true,
-              regex: /^(([\+]([\d]{2,}))([0-9\.\-\/\s]{5,})|([0-9\.\-\/\s]{5,}))*$/
-            }"
-            name="Phone"
-            v-slot="{ errors, valid }"
-            class="column"
-          >
-            <b-field
-              label="Số điện thoại:"
-              :type="{ 'is-danger': errors[0], 'is-success': valid }"
-              :message="errors"
-            >
-              <b-input
-                type="text"
-                v-model="phone"
-                placeholder="0987654321"
-              ></b-input>
-            </b-field>
-          </ValidationProvider>
-        </div>
+
         <SelectAddress @wardSelect="idWard = $event" />
         <ValidationProvider
           rules="required"
@@ -217,7 +195,7 @@
             <b-input type="textarea" v-model="description"></b-input>
           </b-field>
         </ValidationProvider>
-        <UploadComponent @addFiles="imgs = $event" />
+        <UploadComponent @addFiles="imgs = [...$event]" />
         <div class="buttons is-centered mt-5">
           <button class="button is-info" @click="handleSubmit(submit)">
             <span>Đăng tin</span>
@@ -280,96 +258,137 @@ export default {
   },
   methods: {
     submit() {
-      let dataPack = {};
+      console.log(this.imgs[0]);
+      let dataPack = new FormData();
       if (
         this.additionalAmenities.length === 0 &&
         this.nearPlace.length === 0
       ) {
-        dataPack = {
-          imgs: this.imgs,
-          detail_address: this.detailAddress,
-          id_ward: this.idWard,
-          title: this.title,
-          with_owner: this.amenities.includes("with_owner") ? 1 : 0,
-          restroom: this.amenities.includes("restroom") ? 1 : 0,
-          kitchen: this.amenities.includes("kitchen") ? 1 : 0,
-          water_heater: this.amenities.includes("water_heater") ? 1 : 0,
-          air_conditioner: this.amenities.includes("air_conditional") ? 1 : 0,
-          balcony: this.amenities.includes("balcony") ? 1 : 0,
-          id_room_type: this.categorySelected,
-          square: this.area,
-          price: this.price,
-          info_detail: this.description,
-          electricity_price: this.electricityPrice,
-          water_price: this.waterPrice
-        };
+        dataPack.append("imgs", this.imgs);
+        dataPack.append("detail_address", this.detailAddress);
+        dataPack.append("id_ward", this.idWard);
+        dataPack.append("title", this.title);
+        dataPack.append(
+          "with_owner",
+          this.amenities.includes("with_owner") ? 1 : 0
+        );
+        dataPack.append(
+          "restroom",
+          this.amenities.includes("restroom") ? 1 : 0
+        );
+        dataPack.append("kitchen", this.amenities.includes("kitchen") ? 1 : 0);
+        dataPack.append(
+          "water_heater",
+          this.amenities.includes("water_heater") ? 1 : 0
+        );
+        dataPack.append(
+          "air_conditioner",
+          this.amenities.includes("air_conditional") ? 1 : 0
+        );
+        dataPack.append("balcony", this.amenities.includes("balcony") ? 1 : 0);
+        dataPack.append("id_room_type", this.categorySelected);
+        dataPack.append("square", this.area);
+        dataPack.append("price", this.price);
+        dataPack.append("info_detail", this.description);
+        dataPack.append("electricity_price", this.electricityPrice);
+        dataPack.append("water_price", this.waterPrice);
       } else if (
         this.additionalAmenities.length === 0 &&
         this.nearPlace.length !== 0
       ) {
-        dataPack = {
-          imgs: this.imgs,
-          detail_address: this.detailAddress,
-          id_ward: this.idWard,
-          title: this.title,
-          with_owner: this.amenities.includes("with_owner") ? 1 : 0,
-          restroom: this.amenities.includes("restroom") ? 1 : 0,
-          kitchen: this.amenities.includes("kitchen") ? 1 : 0,
-          water_heater: this.amenities.includes("water_heater") ? 1 : 0,
-          air_conditioner: this.amenities.includes("air_conditional") ? 1 : 0,
-          balcony: this.amenities.includes("balcony") ? 1 : 0,
-          id_room_type: this.categorySelected,
-          square: this.area,
-          price: this.price,
-          info_detail: this.description,
-          electricity_price: this.electricityPrice,
-          water_price: this.waterPrice,
-          near_place: this.nearPlace
-        };
+        dataPack.append("imgs", this.imgs);
+        dataPack.append("detail_address", this.detailAddress);
+        dataPack.append("id_ward", this.idWard);
+        dataPack.append("title", this.title);
+        dataPack.append(
+          "with_owner",
+          this.amenities.includes("with_owner") ? 1 : 0
+        );
+        dataPack.append(
+          "restroom",
+          this.amenities.includes("restroom") ? 1 : 0
+        );
+        dataPack.append("kitchen", this.amenities.includes("kitchen") ? 1 : 0);
+        dataPack.append(
+          "water_heater",
+          this.amenities.includes("water_heater") ? 1 : 0
+        );
+        dataPack.append(
+          "air_conditioner",
+          this.amenities.includes("air_conditional") ? 1 : 0
+        );
+        dataPack.append("balcony", this.amenities.includes("balcony") ? 1 : 0);
+        dataPack.append("id_room_type", this.categorySelected);
+        dataPack.append("square", this.area);
+        dataPack.append("price", this.price);
+        dataPack.append("info_detail", this.description);
+        dataPack.append("electricity_price", this.electricityPrice);
+        dataPack.append("water_price", this.waterPrice);
+        dataPack.append("near_place", this.nearPlace);
       } else if (
         this.nearPlace.length === 0 &&
         this.additionalAmenities.length !== 0
       ) {
-        dataPack = {
-          imgs: this.imgs,
-          detail_address: this.detailAddress,
-          id_ward: this.idWard,
-          title: this.title,
-          with_owner: this.amenities.includes("with_owner") ? 1 : 0,
-          restroom: this.amenities.includes("restroom") ? 1 : 0,
-          kitchen: this.amenities.includes("kitchen") ? 1 : 0,
-          water_heater: this.amenities.includes("water_heater") ? 1 : 0,
-          air_conditioner: this.amenities.includes("air_conditional") ? 1 : 0,
-          balcony: this.amenities.includes("balcony") ? 1 : 0,
-          id_room_type: this.categorySelected,
-          square: this.area,
-          price: this.price,
-          info_detail: this.description,
-          electricity_price: this.electricityPrice,
-          water_price: this.waterPrice,
-          additional_amenity: this.additionalAmenities
-        };
+        dataPack.append("imgs", this.imgs);
+        dataPack.append("detail_address", this.detailAddress);
+        dataPack.append("id_ward", this.idWard);
+        dataPack.append("title", this.title);
+        dataPack.append(
+          "with_owner",
+          this.amenities.includes("with_owner") ? 1 : 0
+        );
+        dataPack.append(
+          "restroom",
+          this.amenities.includes("restroom") ? 1 : 0
+        );
+        dataPack.append("kitchen", this.amenities.includes("kitchen") ? 1 : 0);
+        dataPack.append(
+          "water_heater",
+          this.amenities.includes("water_heater") ? 1 : 0
+        );
+        dataPack.append(
+          "air_conditioner",
+          this.amenities.includes("air_conditional") ? 1 : 0
+        );
+        dataPack.append("balcony", this.amenities.includes("balcony") ? 1 : 0);
+        dataPack.append("id_room_type", this.categorySelected);
+        dataPack.append("square", this.area);
+        dataPack.append("price", this.price);
+        dataPack.append("info_detail", this.description);
+        dataPack.append("electricity_price", this.electricityPrice);
+        dataPack.append("water_price", this.waterPrice);
+        dataPack.append("additional_amenity", this.additionalAmenities);
       } else {
-        dataPack = {
-          imgs: this.imgs,
-          detail_address: this.detailAddress,
-          id_ward: this.idWard,
-          title: this.title,
-          with_owner: this.amenities.includes("with_owner") ? 1 : 0,
-          restroom: this.amenities.includes("restroom") ? 1 : 0,
-          kitchen: this.amenities.includes("kitchen") ? 1 : 0,
-          water_heater: this.amenities.includes("water_heater") ? 1 : 0,
-          air_conditioner: this.amenities.includes("air_conditional") ? 1 : 0,
-          balcony: this.amenities.includes("balcony") ? 1 : 0,
-          id_room_type: this.categorySelected,
-          square: this.area,
-          price: this.price,
-          info_detail: this.description,
-          electricity_price: this.electricityPrice,
-          water_price: this.waterPrice,
-          additional_amenity: this.additionalAmenities,
-          near_place: this.nearPlace
-        };
+        dataPack.append("imgs", this.imgs);
+        dataPack.append("detail_address", this.detailAddress);
+        dataPack.append("id_ward", this.idWard);
+        dataPack.append("title", this.title);
+        dataPack.append(
+          "with_owner",
+          this.amenities.includes("with_owner") ? 1 : 0
+        );
+        dataPack.append(
+          "restroom",
+          this.amenities.includes("restroom") ? 1 : 0
+        );
+        dataPack.append("kitchen", this.amenities.includes("kitchen") ? 1 : 0);
+        dataPack.append(
+          "water_heater",
+          this.amenities.includes("water_heater") ? 1 : 0
+        );
+        dataPack.append(
+          "air_conditioner",
+          this.amenities.includes("air_conditional") ? 1 : 0
+        );
+        dataPack.append("balcony", this.amenities.includes("balcony") ? 1 : 0);
+        dataPack.append("id_room_type", this.categorySelected);
+        dataPack.append("square", this.area);
+        dataPack.append("price", this.price);
+        dataPack.append("info_detail", this.description);
+        dataPack.append("electricity_price", this.electricityPrice);
+        dataPack.append("water_price", this.waterPrice);
+        dataPack.append("additional_amenity", this.additionalAmenities);
+        dataPack.append("near_place", this.nearPlace);
       }
       HomeServices.postNewPost(dataPack).then(response => {
         this.message = response.data;

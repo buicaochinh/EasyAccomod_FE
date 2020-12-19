@@ -1,4 +1,11 @@
 import api from "../../apis";
+
+const config = {
+  headers: {
+    "Content-Type": "multipart/form-data"
+  }
+};
+
 export default {
   getRoom() {
     return api().get("/api/home");
@@ -19,6 +26,6 @@ export default {
     return api().post("/api/filter", data);
   },
   postNewPost(data) {
-    return api().post("/api/new_post", data);
+    return api().post("/api/new_post", data, config);
   }
 };
