@@ -264,7 +264,9 @@ export default {
         this.additionalAmenities.length === 0 &&
         this.nearPlace.length === 0
       ) {
-        dataPack.append("imgs", this.imgs);
+        this.imgs.forEach(img => {
+          dataPack.append("imgs[]", img);
+        });
         dataPack.append("detail_address", this.detailAddress);
         dataPack.append("id_ward", this.idWard);
         dataPack.append("title", this.title);
@@ -296,7 +298,9 @@ export default {
         this.additionalAmenities.length === 0 &&
         this.nearPlace.length !== 0
       ) {
-        dataPack.append("imgs", this.imgs);
+        this.imgs.forEach(img => {
+          dataPack.append("imgs[]", img);
+        });
         dataPack.append("detail_address", this.detailAddress);
         dataPack.append("id_ward", this.idWard);
         dataPack.append("title", this.title);
@@ -324,12 +328,16 @@ export default {
         dataPack.append("info_detail", this.description);
         dataPack.append("electricity_price", this.electricityPrice);
         dataPack.append("water_price", this.waterPrice);
-        dataPack.append("near_place", this.nearPlace);
+        this.nearPlace.forEach(place => {
+          dataPack.append("near_place[]", place);
+        });
       } else if (
         this.nearPlace.length === 0 &&
         this.additionalAmenities.length !== 0
       ) {
-        dataPack.append("imgs", this.imgs);
+        this.imgs.forEach(img => {
+          dataPack.append("imgs[]", img);
+        });
         dataPack.append("detail_address", this.detailAddress);
         dataPack.append("id_ward", this.idWard);
         dataPack.append("title", this.title);
@@ -357,9 +365,13 @@ export default {
         dataPack.append("info_detail", this.description);
         dataPack.append("electricity_price", this.electricityPrice);
         dataPack.append("water_price", this.waterPrice);
-        dataPack.append("additional_amenity", this.additionalAmenities);
+        this.additionalAmenities.forEach(amenity => {
+          dataPack.append("additional_amenity[]", amenity);
+        });
       } else {
-        dataPack.append("imgs", this.imgs);
+        this.imgs.forEach(img => {
+          dataPack.append("imgs[]", img);
+        });
         dataPack.append("detail_address", this.detailAddress);
         dataPack.append("id_ward", this.idWard);
         dataPack.append("title", this.title);
@@ -387,11 +399,16 @@ export default {
         dataPack.append("info_detail", this.description);
         dataPack.append("electricity_price", this.electricityPrice);
         dataPack.append("water_price", this.waterPrice);
-        dataPack.append("additional_amenity", this.additionalAmenities);
-        dataPack.append("near_place", this.nearPlace);
+        this.additionalAmenities.forEach(amenity => {
+          dataPack.append("additional_amenity[]", amenity);
+        });
+        this.nearPlace.forEach(place => {
+          dataPack.append("near_place[]", place);
+        });
       }
       HomeServices.postNewPost(dataPack).then(response => {
         this.message = response.data;
+        console.log(this.message);
       });
     }
   }
