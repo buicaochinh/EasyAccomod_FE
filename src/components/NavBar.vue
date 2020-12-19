@@ -63,27 +63,21 @@
 </template>
 
 <script>
+import HomeServices from "../apis/modules/home";
+
 export default {
   data() {
     return {
-      categories: [
-        {
-          id: 1,
-          name: "Chung cư"
-        },
-        {
-          id: 2,
-          name: "Phòng trọ cho thuê"
-        },
-        {
-          id: 3,
-          name: "Ở ghép"
-        }
-      ]
+      categories: []
     };
   },
   created() {
     this.$store.dispatch("AUTH/getUserData");
+    setTimeout(() => {
+      HomeServices.getCategory().then(response => {
+        this.categories = response.data.room_types;
+      });
+    }, 500);
   },
   methods: {
     logout() {

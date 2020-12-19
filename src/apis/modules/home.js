@@ -11,5 +11,14 @@ export default {
   },
   getWardsByIdDistrict(id_district) {
     return api().get(`/api/get_ward_by_id_district/${id_district}`);
+  },
+  getCategory() {
+    return api().get("/api/get_all_room_type");
+  },
+  postFilter(data) {
+    return api().post("/api/filter", data);
+  },
+  postNewPost(data) {
+    return api().post("/api/new_post", data);
   }
 };

@@ -1,14 +1,6 @@
 <template>
   <section>
-    <b-field class="file">
-      <b-upload v-model="file" type="is-info" expanded>
-        <a class="button is-primary is-fullwidth">
-          <b-icon icon="upload"></b-icon>
-          <span>{{ file.name || "Nhấp để tải lên" }}</span>
-        </a>
-      </b-upload>
-    </b-field>
-    <b-field>
+    <b-field label="Hình ảnh">
       <b-upload v-model="dropFiles" type="is-info" multiple drag-drop expanded>
         <section class="section">
           <div class="content has-text-centered">
@@ -42,11 +34,29 @@
 export default {
   data() {
     return {
-      file: {},
       dropFiles: []
     };
   },
+  watch: {
+    dropFiles(val) {
+      // let images = this.createImage(val);
+      // this.$emit("addFiles", images);
+      // return images;
+      console.log(val);
+    }
+  },
   methods: {
+    // createImage(images) {
+    //   let newImgs = [];
+    //   images.forEach(function(image) {
+    //     let reader = new FileReader();
+    //     reader.onload = e => {
+    //       newImgs.push(e.target.result);
+    //     };
+    //     reader.readAsDataURL(image);
+    //   });
+    //   return newImgs;
+    // },
     deleteDropFile(index) {
       this.dropFiles.splice(index, 1);
     }

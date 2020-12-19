@@ -11,6 +11,8 @@ import NotFound from "../views/404";
 import ChangePassword from "../views/user/changePassword";
 import ChangeInformation from "../views/user/changeInfomation";
 import NewPost from "../views/newPost";
+import SearchPage from "../views/searchPage";
+import Admin from "../views/Admin";
 
 Vue.use(VueRouter);
 
@@ -21,8 +23,15 @@ const guest = (to, from, next) => {
     return next("/");
   }
 };
+const AdminRoutes = [
+  {
+    path: "/admin",
+    name: "Dashboard",
+    component: Admin
+  }
+];
 
-const routes = [
+const UserRoutes = [
   {
     path: "*",
     name: "404",
@@ -74,13 +83,32 @@ const routes = [
     path: "/new_post",
     name: "NewPost",
     component: NewPost
+  },
+  {
+    path: "/search",
+    name: "Search",
+    component: SearchPage,
+    props: route => ({
+      category: route.query.category,
+      wardId: route.query.wardId,
+      withOwner: route.query.owner,
+      restroom: route.query.restroom,
+      kitchen: route.query.kitchen,
+      waterHeater: route.query.waterHeater,
+      airConditioner: route.query.airConditioner,
+      balcony: route.query.balcony,
+      squareMax: route.query.squareMax,
+      squareMin: route.query.squareMin,
+      priceMax: route.query.priceMax,
+      priceMin: route.query.priceMin
+    })
   }
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes: [...UserRoutes, ...AdminRoutes]
 });
 
 export default router;

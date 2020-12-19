@@ -17,7 +17,6 @@
             <router-link :to="{ name: 'Room' }">
               <strong>John Smith</strong>
             </router-link>
-            <small>31m</small>
             <br />
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean
             efficitur sit amet massa fringilla egestas. Nullam condimentum
