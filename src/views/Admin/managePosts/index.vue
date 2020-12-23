@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    Admin
+    Manage Posts
   </div>
 </template>
 

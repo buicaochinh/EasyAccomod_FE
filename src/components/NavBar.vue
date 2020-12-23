@@ -63,21 +63,15 @@
 </template>
 
 <script>
-import HomeServices from "../apis/modules/home";
-
 export default {
-  data() {
-    return {
-      categories: []
-    };
+  computed: {
+    categories() {
+      return this.$store.getters["HOME/categories"];
+    }
   },
   created() {
     this.$store.dispatch("AUTH/getUserData");
-    setTimeout(() => {
-      HomeServices.getCategory().then(response => {
-        this.categories = response.data.room_types;
-      });
-    }, 500);
+    this.$store.dispatch("HOME/getCategory");
   },
   methods: {
     logout() {

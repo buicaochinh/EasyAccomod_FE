@@ -88,7 +88,7 @@ export default {
     };
     setTimeout(() => {
       HomeServices.postFilter(dataPack).then(response => {
-        this.roomsFilter = response.data["Search result"];
+        this.roomsFilter = response.data.data;
       });
     }, 500);
     this.$emit("update:layout", "DefaultLayout");

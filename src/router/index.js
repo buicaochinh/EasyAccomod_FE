@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-
+// For Normal Pages
 import Home from "../views";
 import Login from "../views/login";
 import Register from "../views/register";
@@ -12,7 +12,12 @@ import ChangePassword from "../views/user/changePassword";
 import ChangeInformation from "../views/user/changeInfomation";
 import NewPost from "../views/newPost";
 import SearchPage from "../views/searchPage";
+
+// For Admin Pages
 import Admin from "../views/Admin";
+import AdminLogin from "../views/Admin/AdminLogin";
+import ManageUsers from "../views/Admin/manageUsers";
+import ManagePosts from "../views/Admin/managePosts";
 
 Vue.use(VueRouter);
 
@@ -23,15 +28,51 @@ const guest = (to, from, next) => {
     return next("/");
   }
 };
+
+const adminLogin = (to, from, next) => {
+  if (!localStorage.getItem("authToken")) {
+    return next({ name: "AdminLogin" });
+  } else {
+    return next({ name: "Dashboard" });
+  }
+};
+
+// Admin Routes
 const AdminRoutes = [
   {
     path: "/admin",
     name: "Dashboard",
-    component: Admin
+    component: Admin,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/admin/login",
+    name: "AdminLogin",
+    beforeEnter: adminLogin,
+    component: AdminLogin
+  },
+  {
+    path: "/admin/manage_users",
+    name: "ManageUsers",
+    component: ManageUsers,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/admin/manage_posts",
+    name: "ManagePosts",
+    component: ManagePosts,
+    meta: {
+      requiresAuth: true
+    }
   }
 ];
 
-const UserRoutes = [
+// Normal Routes
+const NormalRoutes = [
   {
     path: "*",
     name: "404",
@@ -65,7 +106,7 @@ const UserRoutes = [
     component: User
   },
   {
-    path: "/room/:slug",
+    path: "/room/:id",
     name: "Room",
     component: Room
   },
@@ -108,7 +149,7 @@ const UserRoutes = [
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes: [...UserRoutes, ...AdminRoutes]
+  routes: [...NormalRoutes, ...AdminRoutes]
 });
 
 export default router;

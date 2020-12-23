@@ -1,12 +1,10 @@
 import api from "../../apis";
+import requestHeaders from "../../configs/requestHeaders";
 
-const config = {
-  headers: {
-    "Content-Type": "multipart/form-data"
-  }
-};
+const config = requestHeaders.headersFormData;
 
 export default {
+  // [GET] api
   getRoom() {
     return api().get("/api/home");
   },
@@ -22,10 +20,26 @@ export default {
   getCategory() {
     return api().get("/api/get_all_room_type");
   },
+  getImage(link) {
+    return api().get(`/api/get_img/${link}`);
+  },
+  getComments() {
+    return api().get(`/api/comment`);
+  },
+  // [POST] api
   postFilter(data) {
     return api().post("/api/filter", data);
   },
   postNewPost(data) {
     return api().post("/api/new_post", data, config);
+  },
+  postAddFavorite(data) {
+    return api().post(`/api/add_fav/${data.id}`, data);
+  },
+  postRemoveFavorite(data) {
+    return api().post(`/api/remove_fav/${data.id}`, data);
+  },
+  postComment(data) {
+    return api().post(`/api/comment/${data.id}`, data);
   }
 };

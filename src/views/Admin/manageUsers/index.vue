@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    Admin
+    Manage Users
   </div>
 </template>
 
@@ -12,4 +12,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.router-link-exact-active {
+  background-color: #7957d6;
+  color: whitesmoke;
+}
+</style>

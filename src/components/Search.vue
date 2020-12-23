@@ -2,6 +2,7 @@
   <div class="wrapper">
     <div class="container">
       <section class="section">
+        <h6 class="title is-6">Bộ lọc tìm kiếm</h6>
         <b-field label="Thể loại" type="is-info">
           <b-select placeholder="Danh mục" v-model="categoryFilter" expanded>
             <option

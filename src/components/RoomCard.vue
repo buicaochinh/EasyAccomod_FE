@@ -2,11 +2,8 @@
   <div class="card">
     <div class="card-image">
       <figure class="image is-4by3">
-        <router-link :to="{ name: 'Room', params: { slug: 'Title' } }">
-          <img
-            src="https://bulma.io/images/placeholders/1280x960.png"
-            alt="Placeholder image"
-          />
+        <router-link :to="{ name: 'Room', params: { id: idRoom } }">
+          <img :src="baseUrlImg + $props.imgSrc" alt="Image" />
         </router-link>
       </figure>
     </div>
@@ -16,23 +13,37 @@
           <p class="title is-5">
             <router-link
               style="color: #2c3e50"
-              :to="{ name: 'Room', params: { slug: 'Title' } }"
-              >Title</router-link
+              :to="{ name: 'Room', params: { id: $props.idRoom } }"
+              >{{ $props.title }}</router-link
             >
           </p>
         </div>
       </div>
 
       <div class="content">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec
-        iaculis mauris.
+        <span class="field-title">Giá phòng: </span
+        ><span class="info">{{ $props.price | toCurrency }}</span> <br />
+        <span class="field-title">Diện tích: </span
+        ><span class="info">{{ $props.area }}</span> <br />
+        <span class="field-title">Địa chỉ: </span
+        ><span class="info">{{ $props.address }}</span> <br />
+        <span class="field-title">Loại phòng: </span
+        ><span class="info">{{ $props.category.name }}</span> <br />
       </div>
       <div class="field is-grouped">
         <p class="control">
-          <b-rate :value="4" show-score disabled />
+          <b-rate :value="rate" show-score disabled />
         </p>
         <p class="control" style="margin-left: auto">
-          <button class="button is-small is-danger is-outlined">
+          <button
+            :class="[
+              'button',
+              'is-small',
+              'is-danger',
+              { 'is-outlined': isNotActive }
+            ]"
+            @click="addFavorite"
+          >
             <b-icon size="is-small" icon="heart" />
           </button>
         </p>
@@ -42,11 +53,75 @@
 </template>
 
 <script>
-export default {};
+import urls from "../constants/urls";
+export default {
+  props: {
+    title: {
+      type: String,
+      default: ""
+    },
+    idRoom: {
+      type: Number,
+      default: 0
+    },
+    isNotActive: {
+      type: Boolean,
+      default: true
+    },
+    rate: {
+      type: Number,
+      default: 0
+    },
+    imgSrc: {
+      type: String,
+      default: ""
+    },
+    price: {
+      type: Number,
+      default: 0
+    },
+    area: {
+      type: Number,
+      default: 0
+    },
+    address: {
+      type: String,
+      default: ""
+    },
+    category: {
+      type: Object
+    }
+  },
+  computed: {
+    baseUrlImg: () => urls.BASE_URL_IMG
+  },
+  filters: {
+    toCurrency(value) {
+      if (typeof value !== "number") {
+        return value;
+      }
+      let formatter = new Intl.NumberFormat("vi-VN", {
+        style: "currency",
+        currency: "VND",
+        minimumFractionDigits: 0
+      });
+      return formatter.format(value);
+    }
+  },
+  methods: {
+    addFavorite() {
+      this.$emit("addFavorite");
+    }
+  }
+};
 </script>
 
 <style scoped>
 div.card:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+span.field-title {
+  font-weight: bold;
 }
 </style>

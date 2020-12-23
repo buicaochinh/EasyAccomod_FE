@@ -39,23 +39,11 @@ export default {
   },
   watch: {
     dropFiles(val) {
-      // let images = this.createImage(val);
       this.$emit("addFiles", val);
       return val;
     }
   },
   methods: {
-    // createImage(images) {
-    //   let newImgs = [];
-    //   images.forEach(function(image) {
-    //     let reader = new FileReader();
-    //     reader.onload = e => {
-    //       newImgs.push(e.target.result);
-    //     };
-    //     reader.readAsDataURL(image);
-    //   });
-    //   return newImgs;
-    // },
     deleteDropFile(index) {
       this.dropFiles.splice(index, 1);
     }

@@ -2,9 +2,6 @@
   <div class="container">
     <div class="section">
       <h3 class="title is-3">Đăng tin cho thuê phòng</h3>
-      <div class="block section is-danger is-light">
-        {{ message }}
-      </div>
       <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
         <ValidationProvider rules="required" name="Title" v-slot="{ errors }">
           <b-field
@@ -196,6 +193,9 @@
           </b-field>
         </ValidationProvider>
         <UploadComponent @addFiles="imgs = [...$event]" />
+        <div v-if="active" class="notification is-warning is-light">
+          {{ message }}
+        </div>
         <div class="buttons is-centered mt-5">
           <button class="button is-info" @click="handleSubmit(submit)">
             <span>Đăng tin</span>
@@ -205,7 +205,6 @@
           </router-link>
         </div>
       </ValidationObserver>
-      {{ imgs }}
     </div>
   </div>
 </template>
@@ -241,13 +240,9 @@ export default {
       additionalAmenities: [],
       nearPlace: [],
       imgs: [],
-      message: ""
+      message: "",
+      active: false
     };
-  },
-  watch: {
-    imgs(val) {
-      console.log(val);
-    }
   },
   mounted() {
     setTimeout(() => {
@@ -407,8 +402,8 @@ export default {
         });
       }
       HomeServices.postNewPost(dataPack).then(response => {
+        this.active = true;
         this.message = response.data;
-        console.log(this.message);
       });
     }
   }

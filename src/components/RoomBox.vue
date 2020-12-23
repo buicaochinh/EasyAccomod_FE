@@ -3,7 +3,7 @@
     <article class="media">
       <div class="media-left">
         <figure class="image is-128x128">
-          <router-link :to="{ name: 'Room' }">
+          <router-link :to="{ name: 'Room', params: { id: idRoom } }">
             <img
               src="https://bulma.io/images/placeholders/128x128.png"
               alt="Image"
@@ -14,7 +14,7 @@
       <div class="media-content">
         <div class="content">
           <p>
-            <router-link :to="{ name: 'Room' }">
+            <router-link :to="{ name: 'Room', params: { id: 1 } }">
               <strong>John Smith</strong>
             </router-link>
             <br />
@@ -39,7 +39,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    idRoom: {
+      type: Number,
+      default: 0
+    }
+  }
+};
 </script>
 
 <style scoped>

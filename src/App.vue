@@ -7,6 +7,7 @@
 </template>
 
 <script>
+import AdminLayout from "./layouts/AdminLayout";
 import DefaultLayout from "./layouts/DefaultLayout";
 import AuthLayout from "./layouts/AuthLayout";
 export default {
@@ -17,7 +18,8 @@ export default {
   },
   components: {
     DefaultLayout,
-    AuthLayout
+    AuthLayout,
+    AdminLayout
   }
 };
 </script>

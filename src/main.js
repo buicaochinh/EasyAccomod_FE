@@ -4,6 +4,7 @@ import router from "./router";
 import store from "./store";
 import "./plugins/Buefy";
 import "./plugins/vee-validate";
+import "./assets/css/global.css";
 
 Vue.config.productionTip = false;
 
