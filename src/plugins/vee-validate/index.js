@@ -37,7 +37,6 @@ extend("min", {
 
 extend("phone", {
   validate: val => {
-    console.log(val, MOBILE_REGEX.test(val));
     return MOBILE_REGEX.test(val);
   },
   message: "Phải là số điện thoại"

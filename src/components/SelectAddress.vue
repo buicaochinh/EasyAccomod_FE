@@ -51,6 +51,7 @@
 <script>
 import HomeServices from "../apis/modules/home.js";
 export default {
+  name: "SelectAddress",
   data() {
     return {
       provinceFilter: null,

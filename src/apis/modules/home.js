@@ -20,11 +20,14 @@ export default {
   getCategory() {
     return api().get("/api/get_all_room_type");
   },
-  getImage(link) {
-    return api().get(`/api/get_img/${link}`);
+  getComments(id) {
+    return api().get(`/api/comment/${id}`);
   },
-  getComments() {
-    return api().get(`/api/comment`);
+  getPostPosted() {
+    return api().get("/api/get_post_posted");
+  },
+  getFavPost() {
+    return api().get("/api/get_fav_post");
   },
   // [POST] api
   postFilter(data) {
@@ -33,13 +36,13 @@ export default {
   postNewPost(data) {
     return api().post("/api/new_post", data, config);
   },
-  postAddFavorite(data) {
-    return api().post(`/api/add_fav/${data.id}`, data);
+  postAddFavorite(id) {
+    return api().post(`/api/add_fav/${id}`);
   },
-  postRemoveFavorite(data) {
-    return api().post(`/api/remove_fav/${data.id}`, data);
+  postRemoveFavorite(id) {
+    return api().post(`/api/remove_fav/${id}`);
   },
-  postComment(data) {
-    return api().post(`/api/comment/${data.id}`, data);
+  postComment(id, data) {
+    return api().post(`/api/comment/${id}`, data);
   }
 };

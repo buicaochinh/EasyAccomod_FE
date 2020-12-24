@@ -107,7 +107,7 @@
                 </b-field>
               </ValidationProvider>
               <SelectAddress @wardSelect="idWard = $event" />
-              <div class="buttons is-centered">
+              <div class="buttons is-centered mt-5">
                 <button class="button is-info" @click="handleSubmit(submit)">
                   <span>Chấp nhận</span>
                 </button>

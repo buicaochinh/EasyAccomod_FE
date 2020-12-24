@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+
 // For Normal Pages
 import Home from "../views";
 import Login from "../views/login";
@@ -18,6 +19,10 @@ import Admin from "../views/Admin";
 import AdminLogin from "../views/Admin/AdminLogin";
 import ManageUsers from "../views/Admin/manageUsers";
 import ManagePosts from "../views/Admin/managePosts";
+import AdminAddPost from "@/views/Admin/managePosts/AdminAddPost";
+import AdminAddUser from "@/views/Admin/manageUsers/AdminAddUser";
+import AdminEditUser from "@/views/Admin/manageUsers/AdminEditUser";
+import AdminPreviewPost from "@/views/Admin/managePosts/AdminPreviewPost";
 
 Vue.use(VueRouter);
 
@@ -62,12 +67,32 @@ const AdminRoutes = [
     }
   },
   {
+    path: "/admin/manage_users/add",
+    name: "AdminAddUser",
+    component: AdminAddUser
+  },
+  {
+    path: "/admin/manage_users/edit/:id",
+    name: "AdminEditUser",
+    component: AdminEditUser
+  },
+  {
     path: "/admin/manage_posts",
     name: "ManagePosts",
     component: ManagePosts,
     meta: {
       requiresAuth: true
     }
+  },
+  {
+    path: "/admin/manage_posts/add",
+    name: "AdminAddPost",
+    component: AdminAddPost
+  },
+  {
+    path: "/admin/manage_posts/preview/:id",
+    name: "AdminPreviewPost",
+    component: AdminPreviewPost
   }
 ];
 

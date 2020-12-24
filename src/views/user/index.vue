@@ -40,11 +40,21 @@
           </div>
         </div>
         <div class="column">
-          <RoomTable title="Phòng trọ ưa thích" />
-          <RoomTable
-            v-if="user && user.id_role === 3"
-            title="Phòng trọ đã đăng"
-          />
+          <div class="favorite-table">
+            <RoomTable
+              title="Phòng trọ ưa thích"
+              :is-fav="true"
+              :rooms-data="favorites"
+            />
+          </div>
+          <div class="posted-table">
+            <RoomTable
+              v-if="user && (user.id_role === 3 || user.id_role === 2)"
+              title="Phòng trọ đã đăng"
+              :rooms-data="postsPosted"
+              :is-fav="false"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -53,14 +63,27 @@
 
 <script>
 import { mapGetters } from "vuex";
+import HomeServices from "../../apis/modules/home";
+
 import RoomTable from "../../components/RoomTable";
 
 export default {
   created() {
     this.$store.dispatch("AUTH/getUserData");
+    setTimeout(() => {
+      HomeServices.getPostPosted().then(response => {
+        this.postsPosted = response.data.post_posted;
+      });
+    }, 500);
+  },
+  data() {
+    return {
+      postsPosted: []
+    };
   },
   computed: {
-    ...mapGetters("AUTH", ["user"])
+    ...mapGetters("AUTH", ["user"]),
+    ...mapGetters("HOME", ["favorites"])
   },
   components: {
     RoomTable
@@ -73,5 +96,9 @@ div.img-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+div.posted-table {
+  margin-top: 3rem;
 }
 </style>

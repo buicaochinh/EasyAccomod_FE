@@ -8,11 +8,9 @@
     <div class="media-content">
       <div class="content">
         <p>
-          <strong>Bùi Cao Chinh</strong>
-          <br />
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare
-          magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa
-          sem. Etiam finibus odio quis feugiat facilisis.
+          <strong>Bùi Cao Chinh</strong
+          ><b-rate :value="rate" show-score disabled />
+          {{ $props.content }}
         </p>
       </div>
     </div>
@@ -21,7 +19,16 @@
 
 <script>
 export default {
-  name: "Comment"
+  props: {
+    content: {
+      type: String,
+      default: ""
+    },
+    rate: {
+      type: Number,
+      default: 0
+    }
+  }
 };
 </script>
 

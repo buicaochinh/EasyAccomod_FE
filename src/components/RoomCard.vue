@@ -28,7 +28,7 @@
         <span class="field-title">Địa chỉ: </span
         ><span class="info">{{ $props.address }}</span> <br />
         <span class="field-title">Loại phòng: </span
-        ><span class="info">{{ $props.category.name }}</span> <br />
+        ><span class="info">{{ $props.category }}</span> <br />
       </div>
       <div class="field is-grouped">
         <p class="control">
@@ -42,7 +42,7 @@
               'is-danger',
               { 'is-outlined': isNotActive }
             ]"
-            @click="addFavorite"
+            @click="addAndRemoveFavorite"
           >
             <b-icon size="is-small" icon="heart" />
           </button>
@@ -53,7 +53,9 @@
 </template>
 
 <script>
+import HomeServices from "../apis/modules/home";
 import urls from "../constants/urls";
+import { getArrayValue } from "@/services/getArrayValue";
 export default {
   props: {
     title: {
@@ -63,10 +65,6 @@ export default {
     idRoom: {
       type: Number,
       default: 0
-    },
-    isNotActive: {
-      type: Boolean,
-      default: true
     },
     rate: {
       type: Number,
@@ -89,11 +87,17 @@ export default {
       default: ""
     },
     category: {
-      type: Object
+      type: String,
+      default: ""
     }
   },
   computed: {
-    baseUrlImg: () => urls.BASE_URL_IMG
+    baseUrlImg: () => urls.BASE_URL_IMG,
+    isNotActive() {
+      let idFavs = getArrayValue(this.$store.getters["HOME/favorites"], "id");
+      console.log(idFavs);
+      return !idFavs.includes(this.$props.idRoom);
+    }
   },
   filters: {
     toCurrency(value) {
@@ -109,8 +113,13 @@ export default {
     }
   },
   methods: {
-    addFavorite() {
-      this.$emit("addFavorite");
+    addAndRemoveFavorite() {
+      if (this.isNotActive) {
+        HomeServices.postAddFavorite(this.$props.idRoom);
+      } else {
+        HomeServices.postRemoveFavorite(this.$props.idRoom);
+      }
+      this.$store.dispatch("HOME/getFavorites");
     }
   }
 };

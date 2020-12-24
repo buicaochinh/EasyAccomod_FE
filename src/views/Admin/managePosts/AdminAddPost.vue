@@ -34,7 +34,7 @@
           >
             <b-field
               label="Danh mục: "
-              :type="{ 'is-danger': errors[0], 'is-info': true }"
+              :type="{ 'is-danger': errors[0] }"
               :message="errors"
             >
               <b-select
@@ -124,7 +124,6 @@
         </div>
 
         <SelectAddress @wardSelect="idWard = $event" />
-
         <ValidationProvider
           rules="required"
           name="Description"
@@ -136,62 +135,35 @@
             :message="errors"
           >
             <div class="checkbox">
-              <b-checkbox
-                type="is-info"
-                native-value="with_owner"
-                v-model="amenities"
-              >
+              <b-checkbox native-value="with_owner" v-model="amenities">
                 Chung chủ
               </b-checkbox>
-              <b-checkbox
-                type="is-info"
-                native-value="restroom"
-                v-model="amenities"
-              >
+              <b-checkbox native-value="restroom" v-model="amenities">
                 Nhà vệ sinh
               </b-checkbox>
-              <b-checkbox
-                type="is-info"
-                native-value="kitchen"
-                v-model="amenities"
-              >
+              <b-checkbox native-value="kitchen" v-model="amenities">
                 Nhà bếp
               </b-checkbox>
-              <b-checkbox
-                type="is-info"
-                native-value="water_heater"
-                v-model="amenities"
-              >
+              <b-checkbox native-value="water_heater" v-model="amenities">
                 Nóng lạnh
               </b-checkbox>
-              <b-checkbox
-                type="is-info"
-                native-value="air_conditioner"
-                v-model="amenities"
-              >
+              <b-checkbox native-value="air_conditioner" v-model="amenities">
                 Điều hòa
               </b-checkbox>
-              <b-checkbox
-                type="is-info"
-                native-value="balcony"
-                v-model="amenities"
-              >
+              <b-checkbox native-value="balcony" v-model="amenities">
                 Ban công
               </b-checkbox>
             </div>
           </b-field>
         </ValidationProvider>
-        <b-field label="Tiện ích khác" type="is-info">
+        <b-field label="Tiện ích khác">
           <div class="field">
-            <b-taginput
-              type="is-info"
-              v-model="additionalAmenities"
-            ></b-taginput>
+            <b-taginput v-model="additionalAmenities"></b-taginput>
           </div>
         </b-field>
-        <b-field label="Khu vực" type="is-info">
+        <b-field label="Khu vực">
           <div class="field">
-            <b-taginput type="is-info" v-model="nearPlace"></b-taginput>
+            <b-taginput v-model="nearPlace"></b-taginput>
           </div>
         </b-field>
         <ValidationProvider
@@ -201,7 +173,7 @@
         >
           <b-field
             label="Thông tin chi tiết: "
-            :type="{ 'is-danger': errors[0], 'is-info': true }"
+            :type="{ 'is-danger': errors[0] }"
             :message="errors"
           >
             <b-input type="textarea" v-model="description"></b-input>
@@ -212,10 +184,10 @@
           {{ message }}
         </div>
         <div class="buttons is-centered mt-5">
-          <button class="button is-info" @click="handleSubmit(submit)">
+          <button class="button is-primary" @click="handleSubmit(submit)">
             <span>Đăng tin</span>
           </button>
-          <router-link class="button is-danger" :to="{ name: 'Home' }">
+          <router-link class="button is-danger" :to="{ name: 'ManagePosts' }">
             <span>Quay lại</span>
           </router-link>
         </div>
@@ -225,10 +197,10 @@
 </template>
 
 <script>
-import SelectAddress from "../../components/SelectAddress";
-import UploadComponent from "../../components/UploadComponent";
+import SelectAddress from "../../../components/SelectAddress";
+import UploadComponent from "../../../components/UploadComponent";
 
-import HomeServices from "../../apis/modules/home";
+import HomeServices from "../../../apis/modules/home";
 
 import { ValidationObserver, ValidationProvider } from "vee-validate";
 export default {
@@ -267,7 +239,7 @@ export default {
     }, 500);
   },
   methods: {
-    submit() {
+    submit: function() {
       console.log(this.imgs[0]);
       let dataPack = new FormData();
       if (
@@ -277,6 +249,7 @@ export default {
         this.imgs.forEach(img => {
           dataPack.append("imgs[]", img);
         });
+        dataPack.append("status", 1);
         dataPack.append("detail_address", this.detailAddress);
         dataPack.append("id_ward", this.idWard);
         dataPack.append("title", this.title);
@@ -312,6 +285,7 @@ export default {
         this.imgs.forEach(img => {
           dataPack.append("imgs[]", img);
         });
+        dataPack.append("status", 1);
         dataPack.append("detail_address", this.detailAddress);
         dataPack.append("id_ward", this.idWard);
         dataPack.append("title", this.title);
@@ -350,6 +324,7 @@ export default {
         this.imgs.forEach(img => {
           dataPack.append("imgs[]", img);
         });
+        dataPack.append("status", 1);
         dataPack.append("detail_address", this.detailAddress);
         dataPack.append("id_ward", this.idWard);
         dataPack.append("title", this.title);
@@ -419,6 +394,7 @@ export default {
           dataPack.append("near_place[]", place);
         });
         dataPack.append("time_to_display", this.timeToLive);
+        dataPack.append("status", 1);
       }
       HomeServices.postNewPost(dataPack).then(response => {
         this.active = true;

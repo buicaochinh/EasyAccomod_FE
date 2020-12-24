@@ -26,7 +26,7 @@
       <nav class="level">
         <div class="level-left">
           <div class="level-item">
-            <a class="button is-info">Bình luận</a>
+            <button class="button is-info" @click="submit">Bình luận</button>
           </div>
         </div>
       </nav>
@@ -35,12 +35,28 @@
 </template>
 
 <script>
+import HomeServices from "../apis/modules/home";
 export default {
+  props: {
+    idRoom: {
+      type: Number,
+      default: 0
+    }
+  },
   data() {
     return {
       rate: 0,
       commentContent: ""
     };
+  },
+  methods: {
+    submit() {
+      let dataPack = {
+        rate: this.rate,
+        cmt: this.commentContent
+      };
+      HomeServices.postComment(this.$props.idRoom, dataPack);
+    }
   }
 };
 </script>

@@ -37,7 +37,8 @@
             <router-link
               v-if="
                 $store.getters['AUTH/user'] &&
-                  $store.getters['AUTH/user'].id_role === 3
+                  ($store.getters['AUTH/user'].id_role === 3 ||
+                    $store.getters['AUTH/user'].id_role === 2)
               "
               class="button is-success"
               :to="{ name: 'NewPost' }"

@@ -22,17 +22,13 @@
                   :price="item.price"
                   :area="item.square"
                   :address="item.detail_address"
-                  :category="
-                    $store.getters['HOME/categories'].find(
-                      category => category.id === item.id_room_type
-                    )
-                  "
+                  :category="item.room_type"
                 />
               </div>
             </div>
           </div>
           <div class="section">
-            <h3 class="title is-3">Phòng trọ giá tốt</h3>
+            <h3 class="title is-3">Phòng trọ mới nhất</h3>
             <div class="columns is-multiline">
               <div
                 class="column is-one-quarter"
@@ -46,7 +42,7 @@
                   :price="item.price"
                   :area="item.square"
                   :address="item.detail_address"
-                  :category="searchCategory(item.id_room_type)"
+                  :category="item.room_type"
                 />
               </div>
             </div>
@@ -78,17 +74,10 @@ export default {
   },
   async created() {
     this.$emit("update:layout", "DefaultLayout");
+    await this.$store.dispatch("HOME/getFavorites");
     const response = await HomeServices.getRoom();
     this.eightOnTop = response.data.eight_post_on_top;
     this.eightLastest = response.data.eight_post_lastest;
-  },
-  methods: {
-    searchCategory(id) {
-      let category = this.$store.getters["HOME/categories"].find(
-        category => category.id === id
-      );
-      return category;
-    }
   }
 };
 </script>
