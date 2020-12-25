@@ -11,8 +11,8 @@
             <h3 class="title is-3">Phòng trọ nổi bật</h3>
             <div class="columns is-multiline">
               <div
-                class="column is-one-quarter"
-                v-for="(item, index) in eightOnTop"
+                class="column is-one-third"
+                v-for="(item, index) in nineOnTop"
                 :key="index"
               >
                 <RoomCard
@@ -31,8 +31,8 @@
             <h3 class="title is-3">Phòng trọ mới nhất</h3>
             <div class="columns is-multiline">
               <div
-                class="column is-one-quarter"
-                v-for="(item, index) in eightLastest"
+                class="column is-one-third"
+                v-for="(item, index) in sixLastest"
                 :key="index"
               >
                 <RoomCard
@@ -68,16 +68,16 @@ export default {
   },
   data() {
     return {
-      eightOnTop: [],
-      eightLastest: []
+      nineOnTop: [],
+      sixLastest: []
     };
   },
   async created() {
     this.$emit("update:layout", "DefaultLayout");
     await this.$store.dispatch("HOME/getFavorites");
     const response = await HomeServices.getRoom();
-    this.eightOnTop = response.data.eight_post_on_top;
-    this.eightLastest = response.data.eight_post_lastest;
+    this.nineOnTop = response.data.nine_posts_on_top;
+    this.sixLastest = response.data.six_posts_lastest;
   }
 };
 </script>

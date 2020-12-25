@@ -60,7 +60,7 @@
             v-model="priceRange"
             type="is-info"
             :min="0"
-            :max="50000000"
+            :max="100000000"
             :step="50000"
           >
           </b-slider>
@@ -71,7 +71,7 @@
             v-model="areaRange"
             type="is-info"
             :min="0"
-            :max="100"
+            :max="200"
             :step="2"
           >
           </b-slider>

@@ -83,6 +83,10 @@ export default {
 </script>
 
 <style scoped>
+.nav-wrapper {
+  padding: 5px 0;
+}
+
 a {
   color: #2c3e50;
 }

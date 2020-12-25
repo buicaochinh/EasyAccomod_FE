@@ -13,7 +13,7 @@
         <!-- the "handleSubmit" function on the slot-scope executes the callback if validation was successfull -->
         <section class="section">
           <p
-            style="padding-bottom: 1rem; font-size: 1.5rem; text-align: center"
+            style="padding-bottom: 2.5rem; font-size: 1.75rem; text-align: center"
           >
             ĐĂNG KÝ
           </p>
@@ -176,10 +176,10 @@ export default {
 <style scoped>
 .form-wrapper {
   background-color: white;
-  width: 40vh;
+  width: 55vh;
   margin: 0 auto;
   height: 100%;
-  padding-top: 100px;
+  padding-top: 55px;
 }
 
 .form-content {
@@ -193,14 +193,14 @@ export default {
   display: flex;
   height: 100%;
   justify-content: center;
-  padding: 20px;
+  padding: 20px 20px 40px 20px;
 }
 
 .logo-text {
   padding-top: 5px;
   padding-left: 5px;
   align-items: center;
-  font-size: 30px;
+  font-size: 48px;
   font-weight: bold;
 }
 
