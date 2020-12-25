@@ -20,6 +20,9 @@ export default {
   getCategory() {
     return api().get("/api/get_all_room_type");
   },
+  getAPost(id) {
+    return api().get(`/api/post/${id}`);
+  },
   getComments(id) {
     return api().get(`/api/comment/${id}`);
   },
@@ -44,5 +47,8 @@ export default {
   },
   postComment(id, data) {
     return api().post(`/api/comment/${id}`, data);
+  },
+  postReport(id, data) {
+    return api().post(`/api/report/${id}`, data);
   }
 };

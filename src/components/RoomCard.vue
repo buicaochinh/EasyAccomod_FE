@@ -115,8 +115,10 @@ export default {
   methods: {
     addAndRemoveFavorite() {
       if (this.isNotActive) {
+        this.isNotActive = !this.isNotActive;
         HomeServices.postAddFavorite(this.$props.idRoom);
       } else {
+        this.isNotActive = !this.isNotActive;
         HomeServices.postRemoveFavorite(this.$props.idRoom);
       }
       this.$store.dispatch("HOME/getFavorites");

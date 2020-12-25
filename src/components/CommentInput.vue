@@ -36,6 +36,7 @@
 
 <script>
 import HomeServices from "../apis/modules/home";
+import { mapGetters } from "vuex";
 export default {
   props: {
     idRoom: {
@@ -49,12 +50,20 @@ export default {
       commentContent: ""
     };
   },
+  computed: {
+    ...mapGetters("AUTH", ["user"])
+  },
   methods: {
     submit() {
       let dataPack = {
         rate: this.rate,
         cmt: this.commentContent
       };
+      this.$emit("comments", {
+        rate: this.rate,
+        content: this.commentContent,
+        username: this.user.name
+      });
       HomeServices.postComment(this.$props.idRoom, dataPack);
     }
   }

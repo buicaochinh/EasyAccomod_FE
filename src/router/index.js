@@ -13,6 +13,7 @@ import ChangePassword from "../views/user/changePassword";
 import ChangeInformation from "../views/user/changeInfomation";
 import NewPost from "../views/newPost";
 import SearchPage from "../views/searchPage";
+import Chat from "../views/chat";
 
 // For Admin Pages
 import Admin from "../views/Admin";
@@ -180,6 +181,11 @@ const NormalRoutes = [
       priceMax: route.query.priceMax,
       priceMin: route.query.priceMin
     })
+  },
+  {
+    path: "/chat",
+    name: "Chat",
+    component: Chat
   }
 ];
 

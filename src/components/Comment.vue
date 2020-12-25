@@ -8,7 +8,7 @@
     <div class="media-content">
       <div class="content">
         <p>
-          <strong>Bùi Cao Chinh</strong
+          <strong>{{ $props.username }}</strong
           ><b-rate :value="rate" show-score disabled />
           {{ $props.content }}
         </p>
@@ -27,6 +27,10 @@ export default {
     rate: {
       type: Number,
       default: 0
+    },
+    username: {
+      type: String,
+      default: ""
     }
   }
 };

@@ -67,6 +67,7 @@
                   v-for="(comment, index) in comments"
                   :content="comment.content"
                   :rate="comment.rate"
+                  :username="'Bùi Cao Chinh'"
                   :key="index"
                 />
               </div>
@@ -104,10 +105,8 @@ export default {
   },
   created() {
     setTimeout(() => {
-      HomeServices.postFilter({
-        id_post: this.$route.params.id
-      }).then(response => {
-        let dataRoom = response.data.data[0];
+      HomeServices.getAPost(this.$route.params.id).then(response => {
+        let dataRoom = response.data.post;
         this.room = {
           title: dataRoom.title,
           author: dataRoom.owner.name,
