@@ -16,6 +16,12 @@ export default {
   getUserById(id) {
     return api().get(`/api/admin/users/${id}`);
   },
+  getAllComments() {
+    return api().get("/api/admin/comments");
+  },
+  getAllReports() {
+    return api().get("/api/admin/reports");
+  },
   // [POST] api
   postPreviewPost(id, data) {
     return api().post(`/api/admin/posts/${id}`, data);
@@ -31,5 +37,17 @@ export default {
   },
   postDeleteUser(id, data) {
     return api().post(`/api/admin/users/${id}`, data);
+  },
+  postPreviewComment(id, data) {
+    return api().post(`/api/admin/comments/${id}`, data);
+  },
+  postDeleteComment(id, data) {
+    return api().post(`/api/admin/comments/${id}`, data);
+  },
+  postPreviewReport(id, data) {
+    return api().post(`/api/admin/reports/${id}`, data);
+  },
+  postDeleteReport(id, data) {
+    return api().post(`/api/admin/reports/${id}`, data);
   }
 };

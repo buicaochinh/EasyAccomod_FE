@@ -23,6 +23,8 @@ import AdminAddPost from "@/views/Admin/managePosts/AdminAddPost";
 import AdminAddUser from "@/views/Admin/manageUsers/AdminAddUser";
 import AdminEditUser from "@/views/Admin/manageUsers/AdminEditUser";
 import AdminPreviewPost from "@/views/Admin/managePosts/AdminPreviewPost";
+import ManageComments from "@/views/Admin/manageComments";
+import ManageReports from "@/views/Admin/manageReports";
 
 Vue.use(VueRouter);
 
@@ -93,6 +95,16 @@ const AdminRoutes = [
     path: "/admin/manage_posts/preview/:id",
     name: "AdminPreviewPost",
     component: AdminPreviewPost
+  },
+  {
+    path: "/admin/manage_comments",
+    name: "ManageComments",
+    component: ManageComments
+  },
+  {
+    path: "/admin/manage_reports",
+    name: "ManageReports",
+    component: ManageReports
   }
 ];
 

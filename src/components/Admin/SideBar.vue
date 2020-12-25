@@ -19,6 +19,16 @@
             :to="{ name: 'ManagePosts' }"
           ></b-menu-item>
           <b-menu-item
+            label="Quản lý bình luận"
+            tag="router-link"
+            :to="{ name: 'ManageComments' }"
+          ></b-menu-item>
+          <b-menu-item
+            label="Quản lý báo cáo"
+            tag="router-link"
+            :to="{ name: 'ManageReports' }"
+          ></b-menu-item>
+          <b-menu-item
             label="Trang chủ"
             tag="router-link"
             target="_blank"
