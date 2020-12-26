@@ -32,6 +32,9 @@ export default {
   getFavPost() {
     return api().get("/api/get_fav_post");
   },
+  getNotifications() {
+    return api().get("/api/get_noti");
+  },
   // [POST] api
   postFilter(data) {
     return api().post("/api/filter", data);
@@ -50,5 +53,11 @@ export default {
   },
   postReport(id, data) {
     return api().post(`/api/report/${id}`, data);
+  },
+  postEditPost(id, data) {
+    return api().post(`/api/edit_post/${id}`, data);
+  },
+  postRented(id, data) {
+    return api().post(`/api/update_rented_status/${id}`, data);
   }
 };

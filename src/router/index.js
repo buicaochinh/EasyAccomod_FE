@@ -14,6 +14,7 @@ import ChangeInformation from "../views/user/changeInfomation";
 import NewPost from "../views/newPost";
 import SearchPage from "../views/searchPage";
 import Chat from "../views/chat";
+import EditPost from "../views/editPost";
 
 // For Admin Pages
 import Admin from "../views/Admin";
@@ -164,23 +165,14 @@ const NormalRoutes = [
     component: NewPost
   },
   {
+    path: "/edit_post/:id",
+    name: "EditPost",
+    component: EditPost
+  },
+  {
     path: "/search",
     name: "Search",
-    component: SearchPage,
-    props: route => ({
-      category: route.query.category,
-      wardId: route.query.wardId,
-      withOwner: route.query.owner,
-      restroom: route.query.restroom,
-      kitchen: route.query.kitchen,
-      waterHeater: route.query.waterHeater,
-      airConditioner: route.query.airConditioner,
-      balcony: route.query.balcony,
-      squareMax: route.query.squareMax,
-      squareMin: route.query.squareMin,
-      priceMax: route.query.priceMax,
-      priceMin: route.query.priceMin
-    })
+    component: SearchPage
   },
   {
     path: "/chat",

@@ -44,6 +44,14 @@
               :to="{ name: 'NewPost' }"
               >Đăng tin</router-link
             >
+            <b-navbar-dropdown label="Thông báo">
+              <b-navbar-item
+                v-for="(notification, index) in notifications"
+                :key="index"
+              >
+                {{ notification.content }}
+              </b-navbar-item>
+            </b-navbar-dropdown>
             <router-link
               v-if="$store.getters['AUTH/user']"
               class="button is-light"
@@ -64,7 +72,13 @@
 </template>
 
 <script>
+import HomeService from "../apis/modules/home";
 export default {
+  data() {
+    return {
+      notifications: []
+    };
+  },
   computed: {
     categories() {
       return this.$store.getters["HOME/categories"];
@@ -73,6 +87,12 @@ export default {
   created() {
     this.$store.dispatch("AUTH/getUserData");
     this.$store.dispatch("HOME/getCategory");
+    setTimeout(() => {
+      HomeService.getNotifications().then(response => {
+        this.notifications = response.data.noti;
+        console.log(this.notifications);
+      });
+    }, 500);
   },
   methods: {
     logout() {

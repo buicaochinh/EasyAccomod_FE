@@ -20,8 +20,8 @@
           <td>{{ post.views }}</td>
           <td>
             <span
-              :class="['tag', post.status === 1 ? 'is-danger' : 'is-success']"
-              >{{ post.status === 1 ? "Đã được thuê" : "Còn phòng" }}</span
+              :class="['tag', post.rented === 1 ? 'is-danger' : 'is-success']"
+              >{{ post.rented === 1 ? "Đã được thuê" : "Còn phòng" }}</span
             >
           </td>
           <td>

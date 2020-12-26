@@ -21,7 +21,7 @@
       <b-navbar-item tag="div">
         <div class="buttons">
           <a class="button is-light">
-            <span>Bùi Cao Chinh</span>
+            <span>{{ user.name }}</span>
           </a>
         </div>
       </b-navbar-item>
@@ -30,7 +30,13 @@
 </template>
 
 <script>
-export default {};
+import { mapGetters } from "vuex";
+
+export default {
+  computed: {
+    ...mapGetters("AUTH", ["user"])
+  }
+};
 </script>
 
 <style scoped>

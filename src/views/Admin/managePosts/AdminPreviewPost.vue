@@ -69,7 +69,8 @@ export default {
   name: "AdminPreviewPost",
   data() {
     return {
-      room: {}
+      room: {},
+      ownerId: 0
     };
   },
   computed: {
@@ -79,6 +80,7 @@ export default {
     setTimeout(() => {
       AdminServices.getPostById(this.$route.params.id).then(response => {
         let dataRoom = response.data.data;
+        this.ownerId = dataRoom.owner.id;
         this.room = {
           title: dataRoom.title,
           author: dataRoom.owner.name,
@@ -122,6 +124,9 @@ export default {
           router.push({ name: "ManagePosts" });
         }
       );
+      AdminServices.postSendNotification(this.ownerId, {
+        noti: `Bài đăng ${this.room.title} được chấp nhận`
+      });
     },
     confuse() {
       let dataPack = {
@@ -133,6 +138,9 @@ export default {
           router.push({ name: "ManagePosts" });
         }
       );
+      AdminServices.postSendNotification(this.ownerId, {
+        noti: `Bài đăng ${this.room.title} bị từ chối`
+      });
     }
   }
 };

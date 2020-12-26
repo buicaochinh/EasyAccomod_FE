@@ -134,13 +134,15 @@
 <script>
 import HomeServices from "../apis/modules/home.js";
 import router from "../router";
+import EventBus from "@/eventBus";
+
 export default {
   data() {
     return {
-      categoryFilter: null,
-      provinceFilter: null,
-      districtFilter: null,
-      wardFilter: null,
+      categoryFilter: -1,
+      provinceFilter: -1,
+      districtFilter: -1,
+      wardFilter: -1,
       provinces: [],
       districts: [],
       wards: [],
@@ -180,23 +182,36 @@ export default {
   },
   methods: {
     submit() {
-      router.push({
-        name: "Search",
-        query: {
-          category: this.categoryFilter,
-          wardId: this.wardFilter,
-          owner: this.amenities.includes("with_owner") ? 1 : 0,
-          restroom: this.amenities.includes("restroom") ? 1 : 0,
-          kitchen: this.amenities.includes("kitchen") ? 1 : 0,
-          waterHeater: this.amenities.includes("water_heater") ? 1 : 0,
-          airConditioner: this.amenities.includes("air_conditional") ? 1 : 0,
-          balcony: this.amenities.includes("balcony") ? 1 : 0,
-          squareMax: this.areaRange[1],
-          squareMin: this.areaRange[0],
-          priceMax: this.priceRange[1],
-          priceMin: this.priceRange[0]
-        }
-      });
+      let dataPack = {};
+      if (this.categoryFilter !== -1) {
+        dataPack.append("id_room_type", this.categoryFilter);
+      }
+      if (this.wardFilter !== -1) {
+        dataPack.append("id_ward", this.wardFilter);
+      }
+      if (this.amenities.includes("with_owner")) {
+        dataPack.append("with_owner", 1);
+      }
+      if (this.amenities.includes("restroom")) {
+        dataPack.append("restroom", 1);
+      }
+      if (this.amenities.includes("kitchen")) {
+        dataPack.append("kitchen", 1);
+      }
+      if (this.amenities.includes("water_heater")) {
+        dataPack.append("water_heater", 1);
+      }
+      if (this.amenities.includes("air_conditioner"))
+        dataPack.append("air_conditioner", 1);
+      if (this.amenities.includes("balcony")) {
+        dataPack.append("balcony", 1);
+      }
+      dataPack.append("square_max", this.areaRange[1]);
+      dataPack.append("square_min", this.areaRange[0]);
+      dataPack.append("price_max", this.priceRange[1]);
+      dataPack.append("price_min", this.priceRange[0]);
+      EventBus.$emit("searchData", dataPack);
+      router.push({ name: "Search" });
     }
   }
 };

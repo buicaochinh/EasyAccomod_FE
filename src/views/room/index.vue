@@ -59,9 +59,53 @@
                 />
               </div>
             </div>
+            <div class="report">
+              <div class="block">
+                <button class="button is-info" @click="isActive = !isActive">
+                  Báo cáo
+                </button>
+              </div>
+              <div class="is-relative">
+                <b-notification
+                  v-model="isActive"
+                  aria-close-label="Close notification"
+                >
+                  <div class="block">
+                    <b-radio
+                      v-model="reportContent"
+                      native-value="Nội dung không phù hợp"
+                    >
+                      Nội dung không phù hợp
+                    </b-radio>
+                  </div>
+                  <div class="block">
+                    <b-radio
+                      v-model="reportContent"
+                      native-value="Trang này không uy tín"
+                    >
+                      Trang này không uy tín
+                    </b-radio>
+                  </div>
+
+                  <div class="block">
+                    <b-radio
+                      v-model="reportContent"
+                      native-value="Phòng không tương đương với giá"
+                    >
+                      Phòng không phù hợp với giá
+                    </b-radio>
+                  </div>
+                  <div class="block">
+                    <button class="button is-info" @click="sendReport">
+                      Gửi
+                    </button>
+                  </div>
+                </b-notification>
+              </div>
+            </div>
+
             <div class="comment">
               <h5 class="title is-5">Bình luận & Đánh giá</h5>
-              <CommentInput :id-room="this.$route.params.id" />
               <div class="comments">
                 <Comment
                   v-for="(comment, index) in comments"
@@ -71,6 +115,7 @@
                   :key="index"
                 />
               </div>
+              <CommentInput :id-room="this.$route.params.id" />
             </div>
           </div>
         </div>
@@ -92,7 +137,9 @@ export default {
   data() {
     return {
       room: {},
-      comments: []
+      comments: [],
+      isActive: false,
+      reportContent: ""
     };
   },
   components: {
@@ -141,6 +188,15 @@ export default {
         console.log(this.comments);
       });
     }, 500);
+  },
+  methods: {
+    sendReport() {
+      HomeServices.postReport(this.$route.params.id, {
+        req: this.reportContent
+      }).then(() => {
+        alert("Report thành công");
+      });
+    }
   }
 };
 </script>

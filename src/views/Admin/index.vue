@@ -40,11 +40,11 @@
         <Panel
           title="Top 10 Quận/Huyện"
           :data="topTenDistricts"
-          id-key="id_district"
+          id-key="district"
         />
       </div>
       <div class="column">
-        <Panel title="Top 10 Phường/Xã" :data="topTenWards" id-key="id_ward" />
+        <Panel title="Top 10 Phường/Xã" :data="topTenWards" id-key="ward" />
       </div>
     </div>
   </div>

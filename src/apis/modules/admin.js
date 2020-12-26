@@ -49,5 +49,8 @@ export default {
   },
   postDeleteReport(id, data) {
     return api().post(`/api/admin/reports/${id}`, data);
+  },
+  postSendNotification(id, data) {
+    return api().post(`/api/admin/send_notification/${id}`, data);
   }
 };

@@ -13,9 +13,9 @@
       </thead>
       <tbody>
         <tr v-for="(report, index) in reportsPagination" :key="index">
-          <td>{{ report.content }}</td>
-          <td>{{ report.post.title }}</td>
-          <td>{{ report.from.name }}</td>
+          <td>{{ report.request }}</td>
+          <td>{{ report.id_post }}</td>
+          <td>{{ report.id_from }}</td>
           <td>
             <button
               :class="[

@@ -45,6 +45,7 @@
               title="Phòng trọ ưa thích"
               :is-fav="true"
               :rooms-data="favorites"
+              @switchRented="switchRented($event)"
             />
           </div>
           <div class="posted-table">
@@ -70,6 +71,7 @@ import RoomTable from "../../components/RoomTable";
 export default {
   created() {
     this.$store.dispatch("AUTH/getUserData");
+    this.$store.dispatch("HOME/getFavorites");
     setTimeout(() => {
       HomeServices.getPostPosted().then(response => {
         this.postsPosted = response.data.post_posted;
@@ -87,6 +89,19 @@ export default {
   },
   components: {
     RoomTable
+  },
+  methods: {
+    switchRented(index) {
+      let temp = this.postsPosted;
+      this.postsPosted = [
+        ...temp.slice(0, index),
+        {
+          is_rented: !temp[index].is_rented,
+          ...temp[index]
+        },
+        ...temp.slice(index + 1)
+      ];
+    }
   }
 };
 </script>
