@@ -23,6 +23,9 @@ export default {
 
 <style scoped>
 li {
-  border-top: 1px solid #ddd;
+  border: 1px solid #2f4f4f;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
 }
 </style>

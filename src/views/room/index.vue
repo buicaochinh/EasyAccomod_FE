@@ -9,41 +9,53 @@
               Người đăng: <a>{{ room.author }}</a>
             </div>
             <div class="content block">
-              <span>Thể loại:</span>&nbsp;<span>{{ room.roomType }}</span>
-              <br />
-              <span>Địa chỉ:</span>&nbsp;<span>{{ room.detail_address }}</span>
-              <br />
-              <span>Giá phòng:</span>&nbsp;<span>{{ room.roomPrice }}</span
-              >&nbsp;<span>(vnđ)</span> <br />
-              <span>Tiền điện:</span>&nbsp;<span>{{
-                room.electricityPrice
-              }}</span
-              >&nbsp;<span>(vnđ/kWh)</span> <br />
-              <span>Tiền nước:</span>&nbsp;<span>{{ room.waterPrice }}</span
-              >&nbsp;<span>(vnđ/khối)</span> <br />
-              <span>Thông tin chi tiết:</span>
-              <p>{{ room.detail }}</p>
-              <div class="amenities">
-                <span>Tiện ích: </span> <br />
-                <span>{{
-                  room.withOwner === 1 ? "Chung chủ" : "Không chung chủ"
-                }}</span>
-                <p>
-                  <span>Nhà vệ sinh: </span
-                  ><span>{{ room.restroom === 1 ? "Khép kín" : "Chung" }}</span>
+              <div class="columns">
+                <div class="column is-three-quarters">
+                  <span>Thể loại:</span>&nbsp;<span>{{ room.roomType }}</span>
                   <br />
-                  <span>Nhà bếp: </span
-                  ><span>{{ room.kitchen === 1 ? "Riêng" : "Chung" }}</span>
+                  <span>Địa chỉ:</span>&nbsp;<span>{{
+                    room.detail_address
+                  }}</span>
                   <br />
-                  <span>Điều hòa: </span
-                  ><span>{{ room.airConditioner === 1 ? "Có" : "Không" }}</span>
-                  <br />
-                  <span>Nóng lạnh: </span
-                  ><span>{{ room.waterHeater === 1 ? "Có" : "Không" }}</span>
-                  <br />
-                  <span>Ban công: </span
-                  ><span>{{ room.balcony === 1 ? "Có" : "Không" }}</span>
-                </p>
+                  <span>Giá phòng:</span>&nbsp;<span>{{ room.roomPrice }}</span
+                  >&nbsp;<span>(vnđ)</span> <br />
+                  <span>Tiền điện:</span>&nbsp;<span>{{
+                    room.electricityPrice
+                  }}</span
+                  >&nbsp;<span>(vnđ/kWh)</span> <br />
+                  <span>Tiền nước:</span>&nbsp;<span>{{ room.waterPrice }}</span
+                  >&nbsp;<span>(vnđ/khối)</span> <br />
+                  <span>Thông tin chi tiết:</span>
+                  <p>{{ room.detail }}</p>
+                </div>
+                <div class="amenities column">
+                  <span>Tiện ích: </span> <br />
+                  <span>{{
+                    room.withOwner === 1 ? "Chung chủ" : "Không chung chủ"
+                  }}</span>
+                  <p>
+                    <span>Nhà vệ sinh: </span
+                    ><span>{{
+                      room.restroom === 1 ? "Khép kín" : "Chung"
+                    }}</span>
+                    <br />
+                    <span>Nhà bếp: </span
+                    ><span>{{ room.kitchen === 1 ? "Riêng" : "Chung" }}</span>
+                    <br />
+                    <span>Điều hòa: </span
+                    ><span>{{
+                      room.airConditioner === 1 ? "Có" : "Không"
+                    }}</span>
+                    <br />
+                    <span>Nóng lạnh: </span
+                    ><span>{{ room.waterHeater === 1 ? "Có" : "Không" }}</span>
+                    <br />
+                    <span>Ban công: </span
+                    ><span>{{ room.balcony === 1 ? "Có" : "Không" }}</span>
+                  </p>
+                </div>
+              </div>
+              <div>
                 <span>Một số tiện ích khác: </span>
                 <span>{{ room.additionalAmenities }}</span>
                 <br />
