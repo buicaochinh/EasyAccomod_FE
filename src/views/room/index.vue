@@ -74,9 +74,7 @@
             </div>
           </div>
         </div>
-        <div class="column">
-          Slide
-        </div>
+        <div class="column banner-slide"></div>
       </div>
     </div>
   </div>
@@ -89,6 +87,7 @@ import urls from "@/constants/urls";
 
 import CommentInput from "../../components/CommentInput";
 import Comment from "../../components/Comment";
+
 export default {
   data() {
     return {
@@ -153,5 +152,9 @@ a {
 
 .comment .comments {
   margin-top: 5rem;
+}
+
+.banner-slide {
+  background: url("../../assets/slide.jpg") no-repeat 0 80px;
 }
 </style>

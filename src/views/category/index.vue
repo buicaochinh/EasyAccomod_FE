@@ -39,9 +39,7 @@
           >
           </b-pagination>
         </div>
-        <div class="column">
-          <h5 class="title is-5">Slide</h5>
-        </div>
+        <div class="column banner-slide"></div>
       </div>
     </div>
   </div>
@@ -103,4 +101,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.banner-slide {
+  background: url("../../assets/slide.jpg") no-repeat 0 80px;
+}
+</style>

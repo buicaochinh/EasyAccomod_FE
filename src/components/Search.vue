@@ -145,8 +145,8 @@ export default {
       districts: [],
       wards: [],
       categories: [],
-      priceRange: [10000000, 20000000],
-      areaRange: [35, 50],
+      priceRange: [10000000, 50000000],
+      areaRange: [55, 100],
       amenities: []
     };
   },
