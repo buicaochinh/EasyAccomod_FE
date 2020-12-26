@@ -17,6 +17,7 @@ const actions = {
       .then(response => {
         if (response) {
           commit("setUserData", response.data);
+          localStorage.setItem("role", response.data.id_role);
         } else {
           commit("setUserData", null);
         }

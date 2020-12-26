@@ -44,7 +44,14 @@
               :to="{ name: 'NewPost' }"
               >Đăng tin</router-link
             >
-            <b-navbar-dropdown label="Thông báo">
+            <b-navbar-dropdown
+              v-if="
+                $store.getters['AUTH/user'] &&
+                  ($store.getters['AUTH/user'].id_role === 3 ||
+                    $store.getters['AUTH/user'].id_role === 2)
+              "
+              label="Thông báo"
+            >
               <b-navbar-item
                 v-for="(notification, index) in notifications"
                 :key="index"
@@ -72,7 +79,6 @@
 </template>
 
 <script>
-import HomeService from "../apis/modules/home";
 export default {
   data() {
     return {
@@ -87,12 +93,6 @@ export default {
   created() {
     this.$store.dispatch("AUTH/getUserData");
     this.$store.dispatch("HOME/getCategory");
-    setTimeout(() => {
-      HomeService.getNotifications().then(response => {
-        this.notifications = response.data.noti;
-        console.log(this.notifications);
-      });
-    }, 500);
   },
   methods: {
     logout() {

@@ -1,6 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
+// Services
+
 // For Normal Pages
 import Home from "../views";
 import Login from "../views/login";
@@ -53,60 +55,91 @@ const AdminRoutes = [
     name: "Dashboard",
     component: Admin,
     meta: {
-      requiresAuth: true
+      requiresAuth: true,
+      allowsRole: 2
     }
   },
   {
     path: "/admin/login",
     name: "AdminLogin",
     beforeEnter: adminLogin,
-    component: AdminLogin
+    component: AdminLogin,
+    meta: {
+      requiresAuth: true,
+      allowsRole: 2
+    }
   },
   {
     path: "/admin/manage_users",
     name: "ManageUsers",
     component: ManageUsers,
     meta: {
-      requiresAuth: true
+      requiresAuth: true,
+      allowsRole: 2
     }
   },
   {
     path: "/admin/manage_users/add",
     name: "AdminAddUser",
-    component: AdminAddUser
+    component: AdminAddUser,
+    meta: {
+      requiresAuth: true,
+      allowsRole: 2
+    }
   },
   {
     path: "/admin/manage_users/edit/:id",
     name: "AdminEditUser",
-    component: AdminEditUser
+    component: AdminEditUser,
+    meta: {
+      requiresAuth: true,
+      allowsRole: 2
+    }
   },
   {
     path: "/admin/manage_posts",
     name: "ManagePosts",
     component: ManagePosts,
     meta: {
-      requiresAuth: true
+      requiresAuth: true,
+      allowsRole: 2
     }
   },
   {
     path: "/admin/manage_posts/add",
     name: "AdminAddPost",
-    component: AdminAddPost
+    component: AdminAddPost,
+    meta: {
+      requiresAuth: true,
+      allowsRole: 2
+    }
   },
   {
     path: "/admin/manage_posts/preview/:id",
     name: "AdminPreviewPost",
-    component: AdminPreviewPost
+    component: AdminPreviewPost,
+    meta: {
+      requiresAuth: true,
+      allowsRole: 2
+    }
   },
   {
     path: "/admin/manage_comments",
     name: "ManageComments",
-    component: ManageComments
+    component: ManageComments,
+    meta: {
+      requiresAuth: true,
+      allowsRole: 2
+    }
   },
   {
     path: "/admin/manage_reports",
     name: "ManageReports",
-    component: ManageReports
+    component: ManageReports,
+    meta: {
+      requiresAuth: true,
+      allowsRole: 2
+    }
   }
 ];
 

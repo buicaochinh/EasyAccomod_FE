@@ -184,32 +184,32 @@ export default {
     submit() {
       let dataPack = {};
       if (this.categoryFilter !== -1) {
-        dataPack.append("id_room_type", this.categoryFilter);
+        dataPack["id_room_type"] = this.categoryFilter;
       }
       if (this.wardFilter !== -1) {
-        dataPack.append("id_ward", this.wardFilter);
+        dataPack["id_ward"] = this.wardFilter;
       }
       if (this.amenities.includes("with_owner")) {
-        dataPack.append("with_owner", 1);
+        dataPack["with_owner"] = 1;
       }
       if (this.amenities.includes("restroom")) {
-        dataPack.append("restroom", 1);
+        dataPack["restroom"] = 1;
       }
       if (this.amenities.includes("kitchen")) {
-        dataPack.append("kitchen", 1);
+        dataPack["kitchen"] = 1;
       }
       if (this.amenities.includes("water_heater")) {
-        dataPack.append("water_heater", 1);
+        dataPack["water_heater"] = 1;
       }
       if (this.amenities.includes("air_conditioner"))
-        dataPack.append("air_conditioner", 1);
+        dataPack["air_conditioner"] = 1;
       if (this.amenities.includes("balcony")) {
-        dataPack.append("balcony", 1);
+        dataPack["balcony"] = 1;
       }
-      dataPack.append("square_max", this.areaRange[1]);
-      dataPack.append("square_min", this.areaRange[0]);
-      dataPack.append("price_max", this.priceRange[1]);
-      dataPack.append("price_min", this.priceRange[0]);
+      dataPack["square_max"] = this.areaRange[1];
+      dataPack["square_min"] = this.areaRange[0];
+      dataPack["price_max"] = this.priceRange[1];
+      dataPack["price_min"] = this.priceRange[0];
       EventBus.$emit("searchData", dataPack);
       router.push({ name: "Search" });
     }
