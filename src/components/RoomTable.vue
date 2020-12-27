@@ -43,7 +43,11 @@
             >
           </td>
           <td v-if="!$props.isFav">
-            <button class="button is-info is-small" @click="editPost(item)">
+            <button
+              class="button is-info is-small"
+              @click="editPost(item)"
+              :disabled="item.status === 0"
+            >
               Chỉnh sửa
             </button>
           </td>
@@ -51,7 +55,6 @@
             <button
               class="button is-primary is-small"
               @click="switchRented(item, index)"
-              :disabled="item.status === 0 ? true : false"
             >
               Cập nhật tình trạng
             </button>
@@ -86,7 +89,7 @@ export default {
     },
     switchRented(item, index) {
       HomeServices.postRented(item.id, {
-        rented: !item.is_rented
+        rented: item.is_rented === 1 ? 0 : 1
       });
       this.$emit("switchRented", index);
     }
