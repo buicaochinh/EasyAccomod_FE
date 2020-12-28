@@ -63,12 +63,16 @@
               </div>
               <div class="content__images">
                 <span>Một số hình ảnh:</span>
-                <img
-                  v-for="(linkImg, index) in room.imgs"
-                  :key="index"
-                  :src="baseUrlImg + linkImg"
-                  alt="Image"
-                />
+                <b-carousel :indicator-inside="false">
+                  <b-carousel-item
+                    v-for="(item, index) in room.imgs"
+                    :key="index"
+                  >
+                    <span class="image">
+                      <img :src="baseUrlImg + item" alt="Image" />
+                    </span>
+                  </b-carousel-item>
+                </b-carousel>
               </div>
             </div>
             <div class="report">
@@ -123,7 +127,7 @@
                   v-for="(comment, index) in comments"
                   :content="comment.content"
                   :rate="comment.rate"
-                  :username="'Bùi Cao Chinh'"
+                  :username="user ? user.name : ''"
                   :key="index"
                 />
               </div>
@@ -144,6 +148,7 @@ import urls from "@/constants/urls";
 
 import CommentInput from "../../components/CommentInput";
 import Comment from "../../components/Comment";
+import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -159,6 +164,7 @@ export default {
     Comment
   },
   computed: {
+    ...mapGetters("AUTH", ["user"]),
     baseUrlImg: () => urls.BASE_URL_IMG
   },
   created() {

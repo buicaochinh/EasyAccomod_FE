@@ -107,8 +107,8 @@
             >
               <b-select v-model="idRole" expanded>
                 <option value="1">Người thuê trọ</option>
-                <option value="2">Chủ nhà trọ</option>
-                <option value="3">Admin</option>
+                <option value="2">Admin</option>
+                <option value="3">Chủ nhà trọ</option>
               </b-select>
             </b-field>
           </ValidationProvider>

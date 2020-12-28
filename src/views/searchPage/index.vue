@@ -11,6 +11,7 @@
           :area="item.square"
           :address="item.detail_address"
           :category="item.room_type"
+          :rate="item.rate"
         />
       </div>
       <div v-if="noData" class="notification is-danger">

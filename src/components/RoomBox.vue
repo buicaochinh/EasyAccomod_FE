@@ -27,7 +27,7 @@
         </div>
         <div class="field is-grouped">
           <p class="control">
-            <b-rate :value="4" show-score disabled />
+            <b-rate :value="rate" show-score disabled />
           </p>
           <p class="control" style="margin-left: auto">
             <button
