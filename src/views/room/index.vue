@@ -4,70 +4,58 @@
       <div class="columns">
         <div class="column is-three-quarters">
           <div class="section">
-            <h1 class="title is-1">{{ room.title }}</h1>
-            <div class="block">
-              Người đăng: <a>{{ room.author }}</a>
-            </div>
+            <h1 class="title is-1">{{ title }}</h1>
             <div class="content block">
               <div class="columns">
                 <div class="column is-three-quarters">
-                  <span>Thể loại:</span>&nbsp;<span>{{ room.roomType }}</span>
+                  <span>Thể loại:</span>&nbsp;<span>{{ roomType }}</span>
                   <br />
-                  <span>Địa chỉ:</span>&nbsp;<span>{{
-                    room.detail_address
-                  }}</span>
+                  <span>Địa chỉ:</span>&nbsp;<span>{{ detailAddress }}</span>
                   <br />
-                  <span>Giá phòng:</span>&nbsp;<span>{{ room.roomPrice }}</span
+                  <span>Giá phòng:</span>&nbsp;<span>{{ roomPrice }}</span
                   >&nbsp;<span>(vnđ)</span> <br />
                   <span>Tiền điện:</span>&nbsp;<span>{{
-                    room.electricityPrice
+                    electricityPrice
                   }}</span
                   >&nbsp;<span>(vnđ/kWh)</span> <br />
-                  <span>Tiền nước:</span>&nbsp;<span>{{ room.waterPrice }}</span
+                  <span>Tiền nước:</span>&nbsp;<span>{{ waterPrice }}</span
                   >&nbsp;<span>(vnđ/khối)</span> <br />
                   <span>Thông tin chi tiết:</span>
-                  <p>{{ room.detail }}</p>
+                  <p>{{ detail }}</p>
                 </div>
                 <div class="amenities column">
                   <span>Tiện ích: </span> <br />
                   <span>{{
-                    room.withOwner === 1 ? "Chung chủ" : "Không chung chủ"
+                    withOwner === 1 ? "Chung chủ" : "Không chung chủ"
                   }}</span>
                   <p>
                     <span>Nhà vệ sinh: </span
-                    ><span>{{
-                      room.restroom === 1 ? "Khép kín" : "Chung"
-                    }}</span>
+                    ><span>{{ restroom === 1 ? "Khép kín" : "Chung" }}</span>
                     <br />
                     <span>Nhà bếp: </span
-                    ><span>{{ room.kitchen === 1 ? "Riêng" : "Chung" }}</span>
+                    ><span>{{ kitchen === 1 ? "Riêng" : "Chung" }}</span>
                     <br />
                     <span>Điều hòa: </span
-                    ><span>{{
-                      room.airConditioner === 1 ? "Có" : "Không"
-                    }}</span>
+                    ><span>{{ airConditioner === 1 ? "Có" : "Không" }}</span>
                     <br />
                     <span>Nóng lạnh: </span
-                    ><span>{{ room.waterHeater === 1 ? "Có" : "Không" }}</span>
+                    ><span>{{ waterHeater === 1 ? "Có" : "Không" }}</span>
                     <br />
                     <span>Ban công: </span
-                    ><span>{{ room.balcony === 1 ? "Có" : "Không" }}</span>
+                    ><span>{{ balcony === 1 ? "Có" : "Không" }}</span>
                   </p>
                 </div>
               </div>
               <div>
                 <span>Một số tiện ích khác: </span>
-                <span>{{ room.additionalAmenities }}</span>
+                <span>{{ additionalAmenities }}</span>
                 <br />
-                <span>Gần với </span><span>{{ room.nearPlace }}</span>
+                <span>Gần với </span><span>{{ nearPlace }}</span>
               </div>
               <div class="content__images">
                 <span>Một số hình ảnh:</span>
                 <b-carousel :indicator-inside="false">
-                  <b-carousel-item
-                    v-for="(item, index) in room.imgs"
-                    :key="index"
-                  >
+                  <b-carousel-item v-for="(item, index) in imgs" :key="index">
                     <span class="image">
                       <img :src="baseUrlImg + item" alt="Image" />
                     </span>
@@ -153,8 +141,24 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      room: {},
+      title: "",
+      author: "",
+      detailAddress: "",
+      roomType: "",
+      roomPrice: 0,
+      electricityPrice: 0,
+      waterPrice: 0,
+      detail: "",
+      withOwner: 0,
+      kitchen: 0,
+      restroom: 0,
+      airConditioner: 0,
+      waterHeater: 0,
+      balcony: 0,
+      additionalAmenities: [],
+      nearPlace: [],
       comments: [],
+      imgs: [],
       isActive: false,
       reportContent: ""
     };
@@ -169,41 +173,40 @@ export default {
   },
   created() {
     setTimeout(() => {
-      HomeServices.getAPost(this.$route.params.id).then(response => {
-        let dataRoom = response.data.post;
-        this.room = {
-          title: dataRoom.title,
-          author: dataRoom.owner.name,
-          detail_address:
-            dataRoom.detail_address +
-            " " +
-            dataRoom.ward +
-            " " +
-            dataRoom.district +
-            " " +
-            dataRoom.province,
-          roomType: dataRoom.room_type,
-          roomPrice: dataRoom.price,
-          electricityPrice: dataRoom.electricity_price,
-          waterPrice: dataRoom.water_price,
-          detail: dataRoom.info_detail,
-          withOwner: dataRoom.with_owner,
-          kitchen: dataRoom.kitchen,
-          restroom: dataRoom.restroom,
-          airConditioner: dataRoom.air_conditioner,
-          waterHeater: dataRoom.water_heater,
-          balcony: dataRoom.balcony,
-          additionalAmenities: getArrayValue(
-            dataRoom.additional_amenity,
-            "name"
-          ).join(", "),
-          nearPlace: getArrayValue(dataRoom.near_place, "name").join(", "),
-          imgs: getArrayValue(dataRoom.imgs, "link")
-        };
+      HomeServices.getAPost(parseInt(this.$route.params.id)).then(response => {
+        console.log(response.data.post);
+        this.title = response.data.post.title;
+        this.detailAddress =
+          response.data.post.detail_address +
+          " " +
+          response.data.post.ward +
+          " " +
+          response.data.post.district +
+          " " +
+          response.data.post.province;
+        this.roomType = response.data.post.room_type;
+        this.roomPrice = response.data.post.price;
+        this.electricityPrice = response.data.post.electricity_price;
+        this.waterPrice = response.data.post.water_price;
+        this.detail = response.data.post.info_detail;
+        this.withOwner = response.data.post.with_owner;
+        this.kitchen = response.data.post.kitchen;
+        this.restroom = response.data.post.restroom;
+        this.airConditioner = response.data.post.air_conditioner;
+        this.waterHeater = response.data.post.water_heater;
+        this.balcony = response.data.post.balcony;
+        this.additionalAmenities = getArrayValue(
+          response.data.post.additional_amenity,
+          "name"
+        ).join(", ");
+        this.nearPlace = getArrayValue(
+          response.data.post.near_place,
+          "name"
+        ).join(", ");
+        this.imgs = getArrayValue(response.data.post.imgs, "link");
       });
       HomeServices.getComments(this.$route.params.id).then(response => {
         this.comments = response.data.cmt;
-        console.log(this.comments);
       });
     }, 500);
   },
