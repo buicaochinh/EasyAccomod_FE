@@ -32,6 +32,16 @@
                 >Chỉnh sửa thông tin</router-link
               >
               <router-link
+                v-if="
+                  $store.getters['AUTH/user'] &&
+                    ($store.getters['AUTH/user'].id_role === 2 ||
+                      $store.getters['AUTH/user'].id_role === 3)
+                "
+                :to="{ name: 'Chat' }"
+                class="button is-danger is-fullwidth"
+                >Chat</router-link
+              >
+              <router-link
                 :to="{ name: 'ChangePassword' }"
                 class="button is-light is-fullwidth"
                 >Thay đổi mật khẩu</router-link

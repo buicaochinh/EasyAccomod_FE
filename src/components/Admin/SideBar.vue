@@ -36,7 +36,7 @@
           ></b-menu-item>
         </b-menu-list>
         <b-menu-list label="Actions">
-          <b-menu-item label="Đăng xuất"></b-menu-item>
+          <b-menu-item label="Đăng xuất" @click="logout"></b-menu-item>
         </b-menu-list>
       </b-menu>
     </aside>
@@ -50,9 +50,17 @@
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
   data() {
     return {};
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("AUTH/sendLogoutRequest");
+      router.push({ name: "AdminLogin" });
+    }
   }
 };
 </script>

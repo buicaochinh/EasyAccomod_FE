@@ -44,27 +44,29 @@
               :to="{ name: 'NewPost' }"
               >Đăng tin</router-link
             >
-            <b-navbar-dropdown
-              v-if="
-                $store.getters['AUTH/user'] &&
-                  ($store.getters['AUTH/user'].id_role === 3 ||
-                    $store.getters['AUTH/user'].id_role === 2)
-              "
-              label="Thông báo"
-            >
-              <b-navbar-item
-                v-for="(notification, index) in notifications"
-                :key="index"
-              >
-                {{ notification.content }}
-              </b-navbar-item>
-            </b-navbar-dropdown>
             <router-link
               v-if="$store.getters['AUTH/user']"
               class="button is-light"
               :to="{ name: 'User' }"
               >{{ $store.getters["AUTH/user"].name }}</router-link
             >
+            <button
+              v-if="
+                $store.getters['AUTH/user'] &&
+                  ($store.getters['AUTH/user'].id_role === 3 ||
+                    $store.getters['AUTH/user'].id_role === 2)
+              "
+              class="button is-light"
+            >
+              <b-navbar-dropdown label="Thông báo">
+                <b-navbar-item
+                  v-for="(notification, index) in notifications"
+                  :key="index"
+                >
+                  {{ notification.content }}
+                </b-navbar-item>
+              </b-navbar-dropdown>
+            </button>
             <a
               v-if="$store.getters['AUTH/user']"
               class="button is-warning"

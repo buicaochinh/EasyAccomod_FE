@@ -40,14 +40,6 @@ const guest = (to, from, next) => {
   }
 };
 
-const adminLogin = (to, from, next) => {
-  if (!localStorage.getItem("authToken")) {
-    return next({ name: "AdminLogin" });
-  } else {
-    return next({ name: "Dashboard" });
-  }
-};
-
 // Admin Routes
 const AdminRoutes = [
   {
@@ -62,7 +54,6 @@ const AdminRoutes = [
   {
     path: "/admin/login",
     name: "AdminLogin",
-    beforeEnter: adminLogin,
     component: AdminLogin,
     meta: {
       requiresAuth: true,
