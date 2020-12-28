@@ -27,5 +27,9 @@ li {
   margin-bottom: 10px;
   margin-top: 10px;
   border-radius: 8px;
+  background-color: antiquewhite;
+}
+.primary-font {
+  color: brown;
 }
 </style>
