@@ -17,7 +17,7 @@ export default {
       default: ""
     },
     data: {
-      type: Object
+      type: Array
     },
     idKey: {
       type: String,

@@ -95,7 +95,6 @@ export default {
     baseUrlImg: () => urls.BASE_URL_IMG,
     isNotActive() {
       let idFavs = getArrayValue(this.$store.getters["HOME/favorites"], "id");
-      console.log(idFavs);
       return !idFavs.includes(this.$props.idRoom);
     }
   },

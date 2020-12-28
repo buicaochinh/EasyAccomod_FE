@@ -10,18 +10,11 @@
       </b-navbar-item>
     </template>
     <template slot="end">
-      <b-navbar-dropdown label="Thông báo">
-        <b-navbar-item href="#">
-          About
-        </b-navbar-item>
-        <b-navbar-item href="#">
-          Contact
-        </b-navbar-item>
-      </b-navbar-dropdown>
+      <b-navbar-dropdown label="Thông báo"></b-navbar-dropdown>
       <b-navbar-item tag="div">
         <div class="buttons">
           <a class="button is-light">
-            <span>{{ user.name }}</span>
+            <span v-if="user">{{ user.name }}</span>
           </a>
         </div>
       </b-navbar-item>

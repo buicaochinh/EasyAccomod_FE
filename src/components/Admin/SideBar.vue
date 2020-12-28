@@ -36,6 +36,11 @@
           ></b-menu-item>
         </b-menu-list>
         <b-menu-list label="Actions">
+          <b-menu-item
+            label="Chat"
+            tag="router-link"
+            :to="{ name: 'Chat' }"
+          ></b-menu-item>
           <b-menu-item label="Đăng xuất" @click="logout"></b-menu-item>
         </b-menu-list>
       </b-menu>

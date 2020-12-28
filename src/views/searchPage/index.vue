@@ -13,6 +13,9 @@
           :category="item.room_type"
         />
       </div>
+      <div v-if="noData" class="notification is-danger">
+        Không tìm thấy kết quả nào!
+      </div>
       <b-pagination
         type="is-info"
         :total="roomsFilter.length"
@@ -39,7 +42,6 @@
 <script>
 import HomeServices from "../../apis/modules/home.js";
 import RoomBox from "../../components/RoomBox";
-import EventBus from "@/eventBus";
 import { pagination } from "@/services/pagination";
 
 export default {
@@ -49,7 +51,8 @@ export default {
   data() {
     return {
       roomsFilter: [],
-      current: 1
+      current: 1,
+      noData: false
     };
   },
   computed: {
@@ -58,17 +61,17 @@ export default {
       return [...pagination(this.roomsFilter, page)];
     }
   },
-  created() {
-    let dataPack = {};
-    EventBus.$on("searchData", payload => {
-      dataPack = payload;
-    });
+  mounted() {
+    this.$emit("update:layout", "DefaultLayout");
+    let dataPack = this.$store.getters["HOME/searchData"];
     setTimeout(() => {
       HomeServices.postFilter(dataPack).then(response => {
         this.roomsFilter = response.data.data;
+        if (this.roomsFilter.length === 0) {
+          this.noData = true;
+        }
       });
     }, 500);
-    this.$emit("update:layout", "DefaultLayout");
   }
 };
 </script>

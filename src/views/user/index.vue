@@ -106,8 +106,8 @@ export default {
       this.postsPosted = [
         ...temp.slice(0, index),
         {
-          is_rented: !temp[index].is_rented,
-          ...temp[index]
+          ...temp[index],
+          is_rented: temp[index].is_rented === 1 ? 0 : 1
         },
         ...temp.slice(index + 1)
       ];

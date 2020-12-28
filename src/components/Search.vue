@@ -60,7 +60,7 @@
             v-model="priceRange"
             type="is-info"
             :min="0"
-            :max="100000000"
+            :max="10000000"
             :step="50000"
           >
           </b-slider>
@@ -134,39 +134,42 @@
 <script>
 import HomeServices from "../apis/modules/home.js";
 import router from "../router";
-import EventBus from "@/eventBus";
 
 export default {
   data() {
     return {
-      categoryFilter: -1,
-      provinceFilter: -1,
-      districtFilter: -1,
-      wardFilter: -1,
+      categoryFilter: 0,
+      provinceFilter: 0,
+      districtFilter: 0,
+      wardFilter: 0,
       provinces: [],
       districts: [],
       wards: [],
       categories: [],
-      priceRange: [10000000, 50000000],
-      areaRange: [55, 100],
+      priceRange: [0, 5000000],
+      areaRange: [0, 100],
       amenities: []
     };
   },
   watch: {
     provinceFilter(val) {
-      setTimeout(() => {
-        HomeServices.getDistrictsByIdProvince(val).then(response => {
-          this.districts = response.data.districts;
-        });
-      }, 500);
+      if (val !== 0) {
+        setTimeout(() => {
+          HomeServices.getDistrictsByIdProvince(val).then(response => {
+            this.districts = response.data.districts;
+          });
+        }, 500);
+      }
       return val;
     },
     districtFilter(val) {
-      setTimeout(() => {
-        HomeServices.getWardsByIdDistrict(val).then(response => {
-          this.wards = response.data.wards;
-        });
-      }, 500);
+      if (val !== 0) {
+        setTimeout(() => {
+          HomeServices.getWardsByIdDistrict(val).then(response => {
+            this.wards = response.data.wards;
+          });
+        }, 500);
+      }
       return val;
     }
   },
@@ -183,10 +186,10 @@ export default {
   methods: {
     submit() {
       let dataPack = {};
-      if (this.categoryFilter !== -1) {
+      if (this.categoryFilter !== 0) {
         dataPack["id_room_type"] = this.categoryFilter;
       }
-      if (this.wardFilter !== -1) {
+      if (this.wardFilter !== 0) {
         dataPack["id_ward"] = this.wardFilter;
       }
       if (this.amenities.includes("with_owner")) {
@@ -210,7 +213,7 @@ export default {
       dataPack["square_min"] = this.areaRange[0];
       dataPack["price_max"] = this.priceRange[1];
       dataPack["price_min"] = this.priceRange[0];
-      EventBus.$emit("searchData", dataPack);
+      this.$store.dispatch("HOME/search", dataPack);
       router.push({ name: "Search" });
     }
   }

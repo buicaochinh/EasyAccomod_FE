@@ -3,13 +3,15 @@ import HomeServices from "../../apis/modules/home";
 const state = {
   categories: [],
   favorites: [],
-  nearestPost: null
+  nearestPost: null,
+  searchData: null
 };
 
 const getters = {
   categories: () => state.categories,
   favorites: () => state.favorites,
-  nearestPost: () => state.nearestPost
+  nearestPost: () => state.nearestPost,
+  searchData: () => state.searchData
 };
 
 const mutations = {
@@ -21,6 +23,9 @@ const mutations = {
   },
   setNearestPost(state, payload) {
     state.nearestPost = payload;
+  },
+  setSearchData(state, payload) {
+    state.searchData = payload;
   }
 };
 
@@ -37,6 +42,9 @@ const actions = {
   },
   setCurrentPost({ commit }, data) {
     commit("setNearestPost", data);
+  },
+  search({ commit }, data) {
+    commit("setSearchData", data);
   }
 };
 
