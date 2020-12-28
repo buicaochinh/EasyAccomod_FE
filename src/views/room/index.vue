@@ -5,6 +5,15 @@
         <div class="column is-three-quarters">
           <div class="section">
             <h1 class="title is-1">{{ title }}</h1>
+            <div class="content__images">
+              <b-carousel :indicator-inside="false">
+                <b-carousel-item v-for="(item, index) in imgs" :key="index">
+                  <span class="image">
+                    <img :src="baseUrlImg + item" alt="Image" />
+                  </span>
+                </b-carousel-item>
+              </b-carousel>
+            </div>
             <div class="content block">
               <div class="columns">
                 <div class="column is-three-quarters">
@@ -51,16 +60,6 @@
                 <span>{{ additionalAmenities }}</span>
                 <br />
                 <span>Gần với </span><span>{{ nearPlace }}</span>
-              </div>
-              <div class="content__images">
-                <span>Một số hình ảnh:</span>
-                <b-carousel :indicator-inside="false">
-                  <b-carousel-item v-for="(item, index) in imgs" :key="index">
-                    <span class="image">
-                      <img :src="baseUrlImg + item" alt="Image" />
-                    </span>
-                  </b-carousel-item>
-                </b-carousel>
               </div>
             </div>
             <div class="report">
