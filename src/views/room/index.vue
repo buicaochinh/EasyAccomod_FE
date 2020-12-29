@@ -24,13 +24,17 @@
                   <br />
                   <span>Địa chỉ:</span>&nbsp;<span>{{ detailAddress }}</span>
                   <br />
-                  <span>Giá phòng:</span>&nbsp;<span>{{ roomPrice }}</span
+                  <span>Giá phòng:</span>&nbsp;<span>{{
+                    roomPrice | toCurrency
+                  }}</span
                   >&nbsp;<span>(vnđ)</span> <br />
                   <span>Tiền điện:</span>&nbsp;<span>{{
-                    electricityPrice
+                    electricityPrice | toCurrency
                   }}</span
                   >&nbsp;<span>(vnđ/kWh)</span> <br />
-                  <span>Tiền nước:</span>&nbsp;<span>{{ waterPrice }}</span
+                  <span>Tiền nước:</span>&nbsp;<span>{{
+                    waterPrice | toCurrency
+                  }}</span
                   >&nbsp;<span>(vnđ/khối)</span> <br />
                   <span>Thông tin chi tiết:</span>
                   <p>{{ detail }}</p>

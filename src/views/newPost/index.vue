@@ -107,8 +107,10 @@
               <b-input type="number" v-model="area"></b-input>
             </b-field>
           </ValidationProvider>
+        </div>
+        <div class="columns">
           <ValidationProvider
-            class="column"
+            class="column is-one-third"
             rules="required"
             name="TimeToLive"
             v-slot="{ errors }"
@@ -121,6 +123,10 @@
               <b-input type="number" v-model="timeToLive"></b-input>
             </b-field>
           </ValidationProvider>
+          <div class="column" style="padding-top: 3.75rem">
+            <strong>Giá tiền: </strong>
+            {{ (timeToLive * 100000) | toCurrency }} VNĐ
+          </div>
         </div>
 
         <SelectAddress @wardSelect="idWard = $event" />

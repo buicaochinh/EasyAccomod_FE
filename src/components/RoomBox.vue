@@ -94,19 +94,6 @@ export default {
       return !idFavs.includes(this.$props.idRoom);
     }
   },
-  filters: {
-    toCurrency(value) {
-      if (typeof value !== "number") {
-        return value;
-      }
-      let formatter = new Intl.NumberFormat("vi-VN", {
-        style: "currency",
-        currency: "VND",
-        minimumFractionDigits: 0
-      });
-      return formatter.format(value);
-    }
-  },
   methods: {
     addAndRemoveFavorite() {
       if (this.isNotActive) {
