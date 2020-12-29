@@ -5,8 +5,8 @@
         id="btn-input"
         type="text"
         name="message"
-        class="input"
-        placeholder="Type your message here..."
+        class="input is-info"
+        placeholder="Nhập tin nhắn ..."
         v-model="newMessage"
         @keyup.enter="sendMessage"
       />
@@ -14,7 +14,7 @@
 
     <div class="column is-1">
       <button
-        class="button is-primary is-fullwidth"
+        class="button is-info is-fullwidth"
         id="btn-chat"
         @click="sendMessage"
       >

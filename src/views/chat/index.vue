@@ -1,8 +1,9 @@
 <template>
   <div class="container">
     <div class="wrapper">
-      <div class="title is-3 mt-5">Chats</div>
-
+      <div class="title is-3 mt-5" style="text-align: center">
+        DIỄN ĐÀN THẢO LUẬN
+      </div>
       <div class="body">
         <chat-messages :messages="messages"></chat-messages>
       </div>

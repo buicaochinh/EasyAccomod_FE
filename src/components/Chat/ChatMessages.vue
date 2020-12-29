@@ -1,7 +1,7 @@
 <template>
   <ul class="chat">
     <li v-for="(message, index) in messages" :key="index">
-      <div class="temp">
+      <div class="wrapper">
         <div class="header">
           <strong class="primary-font">
             {{ message.username }}
@@ -22,14 +22,25 @@ export default {
 </script>
 
 <style scoped>
-li {
-  border: 1px solid #2f4f4f;
-  margin-bottom: 10px;
-  margin-top: 10px;
-  border-radius: 8px;
-  background-color: antiquewhite;
+ul.chat {
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
+
+li {
+  padding-top: 0.3rem;
+  margin: 1rem 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+li > .wrapper {
+  border-radius: 0.8rem;
+  padding: 1rem 2rem;
+  background-color: #eeeeee;
+}
+
 .primary-font {
-  color: brown;
+  color: #367df0;
 }
 </style>
