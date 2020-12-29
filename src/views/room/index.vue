@@ -15,6 +15,9 @@
               </b-carousel>
             </div>
             <div class="content block">
+              <div class="author">
+                Người đăng: <a href=""> {{ author }} </a>
+              </div>
               <div class="columns">
                 <div class="column is-three-quarters">
                   <span>Thể loại:</span>&nbsp;<span>{{ roomType }}</span>
@@ -118,7 +121,7 @@
                   :key="index"
                 />
               </div>
-              <CommentInput :id-room="this.$route.params.id" />
+              <CommentInput :id-room="parseInt($route.params.id)" />
             </div>
           </div>
         </div>
@@ -175,6 +178,7 @@ export default {
       HomeServices.getAPost(parseInt(this.$route.params.id)).then(response => {
         console.log(response.data.post);
         this.title = response.data.post.title;
+        this.author = response.data.post.owner.name;
         this.detailAddress =
           response.data.post.detail_address +
           " " +

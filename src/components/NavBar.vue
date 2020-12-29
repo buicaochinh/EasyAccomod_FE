@@ -18,6 +18,23 @@
       </template>
 
       <template slot="end">
+        <b-navbar-item>
+          <b-navbar-dropdown
+            v-if="
+              $store.getters['AUTH/user'] &&
+                ($store.getters['AUTH/user'].id_role === 3 ||
+                  $store.getters['AUTH/user'].id_role === 2)
+            "
+            label="Thông báo"
+          >
+            <b-navbar-item
+              v-for="(notification, index) in notifications"
+              :key="index"
+            >
+              {{ notification.content }}
+            </b-navbar-item>
+          </b-navbar-dropdown>
+        </b-navbar-item>
         <b-navbar-item tag="div">
           <div class="buttons">
             <router-link
@@ -50,23 +67,6 @@
               :to="{ name: 'User' }"
               >{{ $store.getters["AUTH/user"].name }}</router-link
             >
-            <button
-              v-if="
-                $store.getters['AUTH/user'] &&
-                  ($store.getters['AUTH/user'].id_role === 3 ||
-                    $store.getters['AUTH/user'].id_role === 2)
-              "
-              class="button is-light"
-            >
-              <b-navbar-dropdown label="Thông báo">
-                <b-navbar-item
-                  v-for="(notification, index) in notifications"
-                  :key="index"
-                >
-                  {{ notification.content }}
-                </b-navbar-item>
-              </b-navbar-dropdown>
-            </button>
             <a
               v-if="$store.getters['AUTH/user']"
               class="button is-warning"
@@ -81,6 +81,7 @@
 </template>
 
 <script>
+import HomeServices from "@/apis/modules/home";
 export default {
   data() {
     return {
@@ -95,6 +96,9 @@ export default {
   created() {
     this.$store.dispatch("AUTH/getUserData");
     this.$store.dispatch("HOME/getCategory");
+    HomeServices.getNotifications().then(response => {
+      this.notifications = response.data.noti;
+    });
   },
   methods: {
     logout() {
