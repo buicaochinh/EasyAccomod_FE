@@ -36,6 +36,11 @@
                     >&nbsp;<span></span> <br />
                   </div>
                   <div class="line">
+                    <span><strong>Diện tích:</strong></span
+                    >&nbsp;<span>{{ square }} m<sup>2</sup></span
+                    >&nbsp;<span></span> <br />
+                  </div>
+                  <div class="line">
                     <span><strong>Tiền điện:</strong></span
                     >&nbsp;<span>{{ electricityPrice | toCurrency }}</span
                     >&nbsp;<span></span> <br />
@@ -183,6 +188,7 @@ export default {
       roomPrice: 0,
       electricityPrice: 0,
       waterPrice: 0,
+      square: 0,
       detail: "",
       withOwner: 0,
       kitchen: 0,
@@ -223,6 +229,7 @@ export default {
         this.roomType = response.data.post.room_type;
         this.roomPrice = response.data.post.price;
         this.electricityPrice = response.data.post.electricity_price;
+        this.square = response.data.post.square;
         this.waterPrice = response.data.post.water_price;
         this.detail = response.data.post.info_detail;
         this.withOwner = response.data.post.with_owner;

@@ -1,37 +1,42 @@
 <template>
-  <article class="media">
-    <figure class="media-left">
-      <p class="image is-64x64">
-        <img alt="Ảnh đại diện" src="../assets/user.png" />
-      </p>
-    </figure>
-    <div class="media-content">
-      <div class="field is-grouped">
-        <p class="control">
-          <span>Đánh giá:</span>
-          <b-rate class="block" v-model="rate" :value="rate" show-score />
-        </p>
-      </div>
-      <div class="field">
-        <p class="control">
-          Bình luận:
-          <textarea
-            aria-label="Bình luận"
-            class="textarea"
-            v-model="commentContent"
-            placeholder="Nhập bình luận ... "
-          ></textarea>
-        </p>
-      </div>
-      <nav class="level">
-        <div class="level-left">
-          <div class="level-item">
-            <button class="button is-info" @click="submit">Bình luận</button>
-          </div>
-        </div>
-      </nav>
+  <div class="wrapper">
+    <div v-if="message !== ''" class="mes notification is-warning is-light">
+      {{ message }}
     </div>
-  </article>
+    <article class="media">
+      <figure class="media-left">
+        <p class="image is-64x64">
+          <img alt="Ảnh đại diện" src="../assets/user.png" />
+        </p>
+      </figure>
+      <div class="media-content">
+        <div class="field is-grouped">
+          <p class="control">
+            <span>Đánh giá:</span>
+            <b-rate class="block" v-model="rate" :value="rate" show-score />
+          </p>
+        </div>
+        <div class="field">
+          <p class="control">
+            Bình luận:
+            <textarea
+              aria-label="Bình luận"
+              class="textarea"
+              v-model="commentContent"
+              placeholder="Nhập bình luận ... "
+            ></textarea>
+          </p>
+        </div>
+        <nav class="level">
+          <div class="level-left">
+            <div class="level-item">
+              <button class="button is-info" @click="submit">Bình luận</button>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </article>
+  </div>
 </template>
 
 <script>
@@ -47,7 +52,8 @@ export default {
   data() {
     return {
       rate: 0,
-      commentContent: ""
+      commentContent: "",
+      message: ""
     };
   },
   computed: {
@@ -64,10 +70,16 @@ export default {
         content: this.commentContent,
         username: this.user.name
       });
-      HomeServices.postComment(this.$props.idRoom, dataPack);
+      HomeServices.postComment(this.$props.idRoom, dataPack).then(response => {
+        this.message = response.data.data;
+      });
     }
   }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.wrapper {
+  margin-top: 2rem;
+}
+</style>
